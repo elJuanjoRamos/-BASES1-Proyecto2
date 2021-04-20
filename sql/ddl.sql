@@ -65,12 +65,12 @@ CREATE TABLE Pais(
 );
 CREATE TABLE Frontera(
 	id int primary key auto_increment,
-	norte VARCHAR(10),
-    sur VARCHAR(10),
-    este VARCHAR(10),
-    oeste VARCHAR(10),
     pais int not null,
     front int null,
+	norte CHAR,
+    sur CHAR,
+    este CHAR,
+    oeste CHAR,
     foreign key(pais) references Pais(id)
 );
 

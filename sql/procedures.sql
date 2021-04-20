@@ -31,20 +31,33 @@ $$
 DELIMITER $$
 CREATE PROCEDURE INSERT_FRONTERA()
 BEGIN
-	INSERT INTO Frontera(norte, sur, este, oeste, pais, front) 
-    SELECT DISTINCT PAIS_DEL_INVENTOR, CAST(POBLACION_DEL_PAIS AS DECIMAL(12,2)) as POBLACION_DEL_PAIS,
-	CAST(AREA_EN_KM2 AS DECIMAL(12,2)) as AREA_EN_KM2, CAPITAL, (SELECT id FROM region WHERE nombre = REGION_DEL_PAIS) as id   FROM TEMP T;
+	INSERT INTO Frontera(pais, front, norte, sur, este, oeste) 
+    SELECT DISTINCT 
+	(select id from pais where nombre = PAIS_DEL_INVENTOR) as pais, 
+	(select id from pais where nombre = FRONTERA_CON) as frontera,  
+	CAST(NORTE AS CHAR), 
+	CAST(SUR AS CHAR), 
+	CAST(ESTE AS CHAR), 
+	CAST(OESTE AS CHAR) 
+	FROM TEMP T;
+END;
+$$
+
+DELIMITER $$
+CREATE PROCEDURE INSERT_INVENTOR()
+BEGIN
+	INSERT INTO Inventor(nombre, pais) 
+    SELECT DISTINCT INVENTOR, (SELECT id FROM Pais where nombre = PAIS_DEL_INVENTOR) as pais
+	FROM TEMP T
+    WHERE INVENTOR != "";
 END;
 $$
 
 
-SELECT DISTINCT PAIS_DEL_INVENTOR, FRONTERA_CON FROM TEMP T
-WHERE PAIS_DEL_INVENTOR != "";
 
 
 
+    
+	
 
-
-SELECT * FROM Temp where PAIS_DEL_INVENTOR ="";
-
-select * from temp where id = 1400;
+	select * from frontera
