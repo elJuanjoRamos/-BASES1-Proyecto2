@@ -1,0 +1,261 @@
+DROP DATABASE IF EXISTS Practica1;
+CREATE DATABASE Practica1;
+USE Practica1;
+
+CREATE TABLE TIPO_USUARIO(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE USUARIO(
+	id INT PRIMARY KEY AUTO_INCREMENT, 
+    nombres VARCHAR(100) NOT NULL,
+    apellidos VARCHAR(100) NOT NULL,
+    username VARCHAR(100) NOT NULL,
+    pass VARCHAR(100) NOT NULL,
+    edad INT NOT NULL,
+    sexo CHAR NOT NULL,
+    peso DECIMAL(5, 2) NOT NULL,
+    estatura DECIMAL(5, 2) NOT NULL,
+    tipo INT NOT NULL,
+    FOREIGN KEY(tipo) REFERENCES TIPO_USUARIO(id)
+);
+
+
+CREATE TABLE COACH_USUARIO(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    atleta INT NOT NULL, 
+    coach INT NOT NULL,
+    FOREIGN KEY(atleta) REFERENCES USUARIO(id),
+    FOREIGN KEY(coach) REFERENCES USUARIO(id)
+);
+
+CREATE TABLE USUARIO_TEMPERATURA(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    atleta INT NOT NULL,
+    temperatura DECIMAL(5, 2) NOT NULL,
+    fecha datetime NOT NULL,
+    FOREIGN KEY(atleta) REFERENCES USUARIO(id)
+);
+
+CREATE TABLE USUARIO_FRECUENCIA_CARDIACA(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    atleta INT NOT NULL,
+    frecuencia DECIMAL(5, 2) NOT NULL,
+    fecha datetime NOT NULL,
+    FOREIGN KEY(atleta) REFERENCES USUARIO(id)
+);
+
+
+CREATE TABLE USUARIO_OXIGENO(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    atleta INT NOT NULL,
+    oxigeno DECIMAL(5, 2) NOT NULL,
+    fecha datetime NOT NULL,
+    FOREIGN KEY(atleta) REFERENCES USUARIO(id)
+);
+
+DROP TABLE IF EXISTS FRECUENCIA_CARDIACA;
+CREATE TABLE FRECUENCIA_CARDIACA(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    tipo VARCHAR(50) NOT NULL,
+    descripcion VARCHAR(200) NOT NULL,
+    rango_sup DECIMAL(5, 2) NOT NULL,
+    rango_inf DECIMAL(5, 2) NOT NULL,
+    edad_sup INT NOT NULL,
+    edad_inf INT NOT NULL,
+	edad VARCHAR(50) NOT NULL
+);
+
+DROP TABLE IF EXISTS TEMPERATURA;
+CREATE TABLE TEMPERATURA(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    tipo VARCHAR(50) NOT NULL,
+    descripcion VARCHAR(200) NOT NULL,
+    rango_sup DECIMAL(5, 2) NOT NULL,
+    rango_inf DECIMAL(5, 2) NOT NULL,
+    edad_sup INT NOT NULL,
+    edad_inf INT NOT NULL,
+	edad VARCHAR(50) NOT NULL
+);
+DROP TABLE IF EXISTS OXIMETRIA_PULSOS;
+CREATE TABLE OXIMETRIA_PULSOS(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    tipo VARCHAR(50) NOT NULL,
+    descripcion VARCHAR(200) NOT NULL,
+    rango_sup DECIMAL(5, 2) NOT NULL,
+    rango_inf DECIMAL(5, 2) NOT NULL,
+    edad_sup INT NOT NULL,
+    edad_inf INT NOT NULL,
+	edad VARCHAR(50) NOT NULL
+);
+
+
+CREATE TABLE USUARIO_VELOCIDAD(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    atleta INT NOT NULL,
+    velocidad DECIMAL(5, 2) NOT NULL,
+    fecha datetime NOT NULL,
+    FOREIGN KEY(atleta) REFERENCES USUARIO(id)
+);
+/*USUARIO_VELOCIDAD
+USUARIO_DISTANCIA
+USUARIO_TIEMPO
+USUARIO_VUELTAS
+*/
+CREATE TABLE USUARIO_DISTANCIA(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    atleta INT NOT NULL,
+    distancia DECIMAL(5, 2) NOT NULL,
+    fecha datetime NOT NULL,
+    FOREIGN KEY(atleta) REFERENCES USUARIO(id)
+);
+
+CREATE TABLE USUARIO_TIEMPO(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    atleta INT NOT NULL,
+    tiempo DECIMAL(5, 2) NOT NULL,
+    fecha datetime NOT NULL,
+    FOREIGN KEY(atleta) REFERENCES USUARIO(id)
+);
+
+
+CREATE TABLE USUARIO_VUELTAS(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    atleta INT NOT NULL,
+    vueltas DECIMAL(5, 2) NOT NULL,
+    fecha datetime NOT NULL,
+    FOREIGN KEY(atleta) REFERENCES USUARIO(id)
+);
+
+DROP TABLE IF EXISTS ENTRENAMIENTO;
+CREATE TABLE ENTRENAMIENTO(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    atleta INT NOT NULL,
+    nombre varchar(100) NOT NULL,
+    fecha datetime NOT NULL,
+    FOREIGN KEY(atleta) REFERENCES USUARIO(id)
+);
+
+
+DROP TABLE IF EXISTS ENTRENAMIENTO_DETALLE;
+CREATE TABLE ENTRENAMIENTO_DETALLE(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    idEntrenamiento INT NOT NULL,
+    velocidad DECIMAL(5, 2) NOT NULL,
+    distancia DECIMAL(5, 2) NOT NULL,
+    tiempo DECIMAL(5, 2) NOT NULL,
+    vueltas DECIMAL(5, 2) NOT NULL,
+    fecha datetime NOT NULL,
+    FOREIGN KEY(idEntrenamiento) REFERENCES ENTRENAMIENTO(id)
+);
+
+
+    
+/*PROCEDIMIENTOS ALMACENADOS*/
+DELIMITER $$
+CREATE PROCEDURE Crear_Usuario
+(IN _nombres VARCHAR(100), _apellidos VARCHAR(100), _username VARCHAR(100), _pass VARCHAR(100), _edad INT, _sexo CHAR, _peso DECIMAL(5, 2), _estatura DECIMAL(5, 2) , _tipo INT)
+BEGIN
+	DECLARE _existe INT;    
+	SET _existe = (SELECT COUNT(*) FROM USUARIO WHERE username = _username);
+	IF(_existe = 0) THEN
+		INSERT INTO USUARIO(nombres, apellidos, username, pass, edad,sexo, peso, estatura, tipo) VALUES(_nombres, _apellidos, _username, _pass, _edad,_sexo, _peso, _estatura, _tipo);
+		SELECT _existe;
+	ELSE
+		SELECT _existe;
+	END IF;
+END;
+$$
+
+    
+DELIMITER $$
+CREATE PROCEDURE SP_USUARIO_TEMP
+(IN _atleta INT, _temp DECIMAL(5, 2))
+BEGIN
+	INSERT INTO USUARIO_TEMPERATURA(atleta, temperatura, fecha) VALUES (_atleta, _temp, NOW());
+END;
+$$
+
+
+DELIMITER $$
+CREATE PROCEDURE SP_USUARIO_CARD
+(IN _atleta INT, _card DECIMAL(5, 2))
+BEGIN
+	INSERT INTO USUARIO_FRECUENCIA_CARDIACA(atleta, frecuencia, fecha) VALUES (_atleta, _card, NOW());
+END;
+$$
+
+DELIMITER $$
+CREATE PROCEDURE SP_USUARIO_OXI
+(IN _atleta INT, _oxi DECIMAL(5, 2))
+BEGIN
+	INSERT INTO USUARIO_OXIGENO(atleta, oxigeno, fecha) VALUES (_atleta, _oxi, NOW());
+END;
+$$
+
+DELIMITER $$
+CREATE PROCEDURE SP_USUARIO_COATCH
+(IN _atleta INT, _coatch INT)
+BEGIN
+	INSERT INTO COACH_USUARIO(atleta, coach) VALUES (_atleta, _coatch);
+END;
+$$
+
+
+DELIMITER $$
+CREATE PROCEDURE SP_USUARIO_VEL
+(IN _atleta INT, _temp DECIMAL(5, 2))
+BEGIN
+	INSERT INTO USUARIO_VELOCIDAD(atleta, velocidad, fecha) VALUES (_atleta, _temp, NOW());
+END;
+$$
+
+DELIMITER $$
+CREATE PROCEDURE SP_USUARIO_DIST
+(IN _atleta INT, _temp DECIMAL(5, 2))
+BEGIN
+	INSERT INTO USUARIO_DISTANCIA(atleta, distancia, fecha) VALUES (_atleta, _temp, NOW());
+END;
+$$
+
+DELIMITER $$
+CREATE PROCEDURE SP_USUARIO_TIME
+(IN _atleta INT, _temp DECIMAL(5, 2))
+BEGIN
+	INSERT INTO USUARIO_TIEMPO(atleta, tiempo, fecha) VALUES (_atleta, _temp, NOW());
+END;
+$$
+
+DELIMITER $$
+CREATE PROCEDURE SP_USUARIO_VUEL
+(IN _atleta INT, _temp DECIMAL(5, 2))
+BEGIN
+	INSERT INTO USUARIO_VUELTAS(atleta, vueltas, fecha) VALUES (_atleta, _temp, NOW());
+END;
+$$
+
+
+/*PROCEDIMIENTOS ALMACENADOS*/
+DELIMITER $$
+CREATE PROCEDURE Crear_Entrenamiento
+(IN _atleta INT, _nombre VARCHAR(100))
+BEGIN
+	INSERT INTO ENTRENAMIENTO(atleta, nombre, fecha) VALUES (_atleta, _nombre, NOW());
+    SELECT * FROM ENTRENAMIENTO WHERE id = LAST_INSERT_ID();
+END;
+$$
+
+DELIMITER $$
+CREATE PROCEDURE SP_ENTRENAMIENTO_DETALLE
+(IN _entrenamiento INT, _vel DECIMAL(5, 2), _dis DECIMAL(5, 2), _tim DECIMAL(5, 2), _vuel DECIMAL(5, 2))
+BEGIN
+	INSERT INTO ENTRENAMIENTO_DETALLE(idEntrenamiento, velocidad, distancia, tiempo, vueltas, fecha) VALUES (_entrenamiento, _vel, _dis, _tim, _vuel, NOW());
+END;
+$$
+
+
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '1234';
+FLUSH PRIVILEGES;
+
