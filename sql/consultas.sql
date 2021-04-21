@@ -56,7 +56,7 @@ JOIN Area A on PA.area = A.id
 WHERE A.nombre = 'optica';
 
 /*CONSULTA 8*/
-select SUBSTR(nombre, 1,1) AS inicial_muicipio, sum(area) AS total_area  FROM Pais
+select SUBSTR(nombre, 1,1) AS inicial_pais, sum(area) AS total_area  FROM Pais
 group by SUBSTR(nombre, 1,1)
 order by inicial_muicipio asc;
 
@@ -83,6 +83,12 @@ RIGHT(IR.nombre, 1) = 'n')
 AND
 (1801 <= I.anio AND I.anio <= 1900);
 
+/*CONSULTA 11*/
+SELECT * FROM (SELECT pais, P.nombre as nombre, P.area as area, count(*) as cant_fronteras FROM Frontera
+JOIN Pais P on P.id = pais
+GROUP BY pais) T
+WHERE T.cant_fronteras >= 7
+ORDER BY area desc;
 
 
 
