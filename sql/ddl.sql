@@ -141,37 +141,35 @@ CREATE TABLE Encuesta(
 	id int primary key auto_increment,
 	nombre varchar(100) not null
 );
-
-
+ 
 CREATE TABLE Pregunta(
 	id int primary key auto_increment,
-	pregunta varchar(100) not null,
+	pregunta varchar(500) not null,
     encuensta int not null,
     Foreign key(encuensta) references Encuesta(id)
 );
 
 CREATE TABLE Respuesta(
 	id int primary key auto_increment,
-	respuesta varchar(100) not null,
-    letra char not null,
+	respuesta varchar(150) not null,
     pregunta int not null,
     Foreign key(pregunta) references Pregunta(id)    
 );
 
 CREATE TABLE Respuesta_correcta(
 	id int primary key auto_increment,
-	pregunta int not null,
-    respuesta int not null,
-    FOREIGN KEY(pregunta) references Pregunta(id),
-    FOREIGN KEY(respuesta) references Respuesta(id)
+	respuesta varchar(150) null,
+    pregunta int not null,
+    FOREIGN KEY(pregunta) references Pregunta(id)
 );
 
 CREATE TABLE Pais_Respuesta(
 	id int primary key auto_increment,
 	pais int not null,
-    respuesta int not null,
+    pregunta int not null,
+    letra char not null,
 	FOREIGN KEY(pais) references Pais(id),
-    FOREIGN KEY(respuesta) references Respuesta(id)
+    FOREIGN KEY(pregunta) references Pregunta(id)
 );
 
 
