@@ -118,3 +118,31 @@ where R.nombre = 'Centro America');
 
 
 /*CONSULTA 16*/
+
+
+/*CONSULTA 17*/
+SELECT I.nombre as invento, INV.nombre as inventor FROM Inventor_Invento II 
+JOIN Invento I ON II.idInvento = I.id
+JOIN Inventor INV ON II.idInventor = INV.id
+WHERE I.anio = ( 
+SELECT I.anio FROM Inventor_Invento II
+JOIN Invento I ON II.idInvento = I.id
+JOIN Inventor INV ON II.idInventor = INV.id
+WHERE INV.nombre = 'BENZ');
+
+/*CONSULTA 18*/
+
+SELECT P.nombre, P.poblacion, P.area FROM Frontera F
+JOIN Pais P on F.pais = P.id
+WHERE F.front IS NULL
+AND P.area >= (SELECT area FROM Pais WHERE nombre = 'Japon');
+
+
+/*CONSULTA 19*/
+SELECT P.nombre AS Pais, P1.nombre AS Frontera  FROM Frontera F
+JOIN Pais P on F.pais = P.id
+JOIN Pais P1 on F.front = P1.id
+WHERE F.front IS NOT NULL;
+
+/*CONSULTA 20*/
+
