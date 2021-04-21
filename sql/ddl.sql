@@ -100,9 +100,9 @@ CREATE TABLE Inventor_Invento(
 CREATE TABLE Profesional(
 	id int primary key auto_increment,
     nombre varchar(100) not null,
-    salario decimal(5,2) not null,
+    salario decimal(10,2) not null,
     contrato date not null,
-    comision decimal(5,2) not null    
+    comision INT NULL
 );
 CREATE TABLE Asignacion_Invento(
 	id int primary key auto_increment,
@@ -111,15 +111,21 @@ CREATE TABLE Asignacion_Invento(
     Foreign key(profesional) references Profesional(id),
     Foreign key(invento) references Invento(id)
 );
+
 CREATE TABLE Area(
 	id int primary key auto_increment,
 	nombre varchar(100) not null,
 	rankin int not null,
-    descripcion varchar(150) not null,
-    jefe int not null,
-    Foreign key(jefe) references Profesional(id)
+    descripcion varchar(150) not null
 );
 
+CREATE TABLE Jefe_Area(
+	id int primary key auto_increment,
+	profesional int not null,
+    area int not null,
+    Foreign key(profesional) references Profesional(id),
+    Foreign key(area) references Area(id)
+);
 
 CREATE TABLE Profe_Area(
 	id int primary key auto_increment,
@@ -199,7 +205,6 @@ fields terminated by ','
 lines terminated by '\r\n' 
 ignore 1 lines 
 (NOMBRE_REGION, REGION_PADRE);
-
 
 
 

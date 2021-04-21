@@ -54,10 +54,79 @@ END;
 $$
 
 
+DELIMITER $$
+CREATE PROCEDURE INSERT_INVENTO()
+BEGIN
+	INSERT INTO Invento(nombre, anio, pais) 
+	SELECT DISTINCT INVENTO, TRUNCATE(CAST(ANIO_DEL_INVENTO AS DECIMAL(10,2)),0) as anio, (SELECT id FROM Pais where nombre = PAIS_DEL_INVENTO) as pais
+	FROM TEMP T
+    WHERE INVENTO != "";    
+END;
+$$
+
+
+DELIMITER $$
+CREATE PROCEDURE INSERT_INVENTO_INVENTO()
+BEGIN
+	INSERT INTO Inventor_Invento(idInvento, idInventor) 
+	SELECT DISTINCT (SELECT id from Invento where nombre = INVENTO and anio = ANIO_DEL_INVENTO), (SELECT id from Inventor where nombre = INVENTOR)
+	FROM TEMP T
+    WHERE INVENTO != "";    
+END;
+$$
+
+DELIMITER $$
+CREATE PROCEDURE INSERT_PROFESIONAL()
+BEGIN
+	INSERT INTO Profesional(nombre, salario, contrato, comision) 
+	SELECT DISTINCT PROFESIONAL_ASIGANDO_AL_INVENTO, 
+	CAST(SALARIO AS DECIMAL(10,2)), 
+	STR_TO_DATE(FECHA_CONTRATO_PROFESIONAL, '%d/%m/%Y') AS fecha, 
+	TRUNCATE(CAST(COMISION AS DECIMAL(10,2)),0)
+	FROM TEMP T
+	WHERE PROFESIONAL_ASIGANDO_AL_INVENTO != "" AND COMISION != "";    
+	INSERT INTO Profesional(nombre, salario, contrato, comision) 
+	SELECT DISTINCT PROFESIONAL_ASIGANDO_AL_INVENTO, 
+	CAST(SALARIO AS DECIMAL(10,2)), 
+	STR_TO_DATE(FECHA_CONTRATO_PROFESIONAL, '%d/%m/%Y') AS fecha, 
+	NULL
+	FROM TEMP T
+	WHERE PROFESIONAL_ASIGANDO_AL_INVENTO != "" AND COMISION = "";    
+END;
+$$
+      
+DELIMITER $$
+CREATE PROCEDURE INSERT_ASIGNACION_INVENTO()
+BEGIN
+	INSERT INTO Asignacion_Invento(profesional, invento) 
+	SELECT DISTINCT 
+    (SELECT ID FROM Profesional WHERE nombre = PROFESIONAL_ASIGANDO_AL_INVENTO) as id,
+	(SELECT ID FROM Invento WHERE nombre = INVENTO AND anio = ANIO_DEL_INVENTO) as invent
+	FROM TEMP T
+	WHERE INVENTO != "";
+END;
+$$
+
+DELIMITER $$
+CREATE PROCEDURE INSERT_AREA()
+BEGIN
+	INSERT INTO Area(nombre, rankin, descripcion) 
+    SELECT DISTINCT AREA_INVEST_DEL_PROF, RANKING, "" AS DESCRIPCION
+    FROM TEMP
+	WHERE INVENTO != "";
+END;
+$$
 
 
 
+nombre varchar(100) not null,
+	rankin int not null,
+    descripcion varchar(150) not null,
     
 	
 
-	select * from frontera
+
+
+
+
+
