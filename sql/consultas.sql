@@ -68,8 +68,20 @@ JOIN Inventor IR on IR.id = II.idInventor
 JOIN Pais P on P.id = IR.pais
 WHERE SUBSTR(IR.nombre, 1,2) = 'Be';
 
+/*CONSULTA 10*/
 
-SELECT * FROM TEMP WHERE 
+SELECT IR.nombre as Inventor, I.nombre as Invento, I.anio as Anio_Invento, P.nombre as Pais_Invento FROM Inventor_Invento II
+JOIN Invento I on I.id = II.idinvento
+JOIN Inventor IR on IR.id = II.idInventor
+JOIN Pais P on P.id = IR.pais
+WHERE 
+SUBSTR(IR.nombre, 1,1) = 'B'
+AND
+(RIGHT(IR.nombre, 1) = 'r'
+OR
+RIGHT(IR.nombre, 1) = 'n')
+AND
+(1801 <= I.anio AND I.anio <= 1900);
 
 
 
@@ -77,5 +89,32 @@ SELECT * FROM TEMP WHERE
 
 
 
+
+SELECT DISTINCT TRIM((SELECT SPLIT_STRING(INVENTOR,';',2))) as uno,
+(SELECT id FROM Pais where nombre = PAIS_DEL_INVENTOR) as pais
+FROM TEMP 
+WHERE INVENTOR LIKE '%;%';
+
+
+
+
+
+
+SET @agg = "G1;G2;G3;G4;" ;
+
+SELECT SPLIT_STRING(@agg,';',1) ;
+SELECT SPLIT_STRING(@agg,';',2) ;
+SELECT SPLIT_STRING(@agg,';',3) ;
+SELECT SPLIT_STRING(@agg,';',4) ;
+SELECT SPLIT_STRING(@agg,';',5) ;
+SELECT SPLIT_STRING(@agg,';',6) ;
+
+
+
+
+
+SELECT DISTINCT INVENTOR
+FROM TEMP 
+WHERE 
 
 

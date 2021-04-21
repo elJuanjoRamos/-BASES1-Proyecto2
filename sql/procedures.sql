@@ -2,6 +2,25 @@
 
 use proyecto2;
 
+
+DELIMITER $$
+CREATE FUNCTION 
+   SPLIT_STRING ( s VARCHAR(1024) , del CHAR(1) , i INT)
+   RETURNS VARCHAR(1024)
+   DETERMINISTIC -- always returns same results for same input parameters
+   BEGIN
+        DECLARE n INT ;
+        -- get max number of items
+        SET n = LENGTH(s) - LENGTH(REPLACE(s, del, '')) + 1;
+        IF i > n THEN
+            RETURN NULL ;
+        ELSE
+            RETURN SUBSTRING_INDEX(SUBSTRING_INDEX(s, del, i) , del , -1 ) ;        
+        END IF;
+    END
+$$
+
+
 DELIMITER $$
 CREATE PROCEDURE INSERT_CONTINET()
 BEGIN
@@ -47,9 +66,29 @@ DELIMITER $$
 CREATE PROCEDURE INSERT_INVENTOR()
 BEGIN
 	INSERT INTO Inventor(nombre, pais) 
-    SELECT DISTINCT INVENTOR, (SELECT id FROM Pais where nombre = PAIS_DEL_INVENTOR) as pais
+    SELECT DISTINCT TRIM(INVENTOR), (SELECT id FROM Pais where nombre = PAIS_DEL_INVENTOR) as pais
 	FROM TEMP T
-    WHERE INVENTOR != "";
+    WHERE 
+    INVENTOR != ""
+    AND
+    INVENTOR NOT LIKE '%;%';
+    INSERT INTO Inventor(nombre, pais) 
+    SELECT DISTINCT TRIM((SELECT SPLIT_STRING(INVENTOR,';',1))) as uno,
+	(SELECT id FROM Pais where nombre = PAIS_DEL_INVENTOR) as pais
+	FROM TEMP 
+	WHERE INVENTOR LIKE '%;%';
+    INSERT INTO Inventor(nombre, pais) 
+    SELECT DISTINCT TRIM((SELECT SPLIT_STRING(INVENTOR,';',2))) as dos,
+	(SELECT id FROM Pais where nombre = PAIS_DEL_INVENTOR) as pais
+	FROM TEMP 
+	WHERE INVENTOR LIKE '%;%';
+    INSERT INTO Inventor(nombre, pais) 
+    SELECT DISTINCT TRIM((SELECT SPLIT_STRING(INVENTOR,';',3))) as tres,
+	(SELECT id FROM Pais where nombre = PAIS_DEL_INVENTOR) as pais
+	FROM TEMP 
+	WHERE INVENTOR LIKE '%;%'
+	AND TRIM((SELECT SPLIT_STRING(INVENTOR,';',3))) IS NOT NULL;
+
 END;
 $$
 
@@ -196,21 +235,6 @@ $$
 	
 
 
-	
-
-
-/*
-NOMBRE_ENCUESTA varchar(200) null,
-    PREGUNTA varchar(500) null,
-	RESPUESTAS_POSIBLES varchar(200) null,
-    RESPUESTA_CORRECTA varchar(200) null,
-    PAIS varchar(200) null,
-    RESPUESTA_PAIS varchar(200) null
-*/
-
-
-
-WHERE pregunta = 'La innovacion de producto mas importante debe ser';
 
 
 
