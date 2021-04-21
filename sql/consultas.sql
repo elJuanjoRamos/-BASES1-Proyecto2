@@ -45,11 +45,15 @@ ORDER BY area asc;
 
 
 
+/*CONSULTA 6*/
 
-
-
-
-
+/*CONSULTA 7*/
+SELECT P.nombre as Investigador, AI.invento as idInvento, I.nombre as invento, I.anio FROM Asignacion_Invento AI
+JOIN Invento I on I.id = AI.invento
+JOIN Profesional P on P.id = AI.profesional
+JOIN Profe_Area PA on P.id = PA.profesional
+JOIN Area A on PA.area = A.id
+WHERE A.nombre = 'optica';
 
 
 
