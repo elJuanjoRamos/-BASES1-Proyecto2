@@ -13,26 +13,30 @@ GROUP BY PR.pais
 ORDER BY PR.pais  ASC;
 
 /*CONSULTA 3 */
-
 SELECT id, nombre FROM PAIS
 WHERE 
 id not in(SELECT DISTINCT PAIS FROM Inventor)
 AND
 id in(SELECT DISTINCT pais FROM FRONTERA where front is null)
-order by id asc;
+order by nombre asc;
+
+/*CONSULTA 4*/
+select PA.area as idAarea, A.nombre as area, P.nombre as Jefe_Area, P1.nombre as Subordinado  from Profe_Area PA
+JOIN Area A on PA.area = A.id
+JOIN Jefe_Area JA on JA.area = A.id
+JOIN Profesional P on JA.profesional = P.id
+JOIN Profesional P1 on PA.profesional = P1.id
+ORDER BY Jefe_Area ASC;
 
 
 
-SELECT * FROM (SELECT DISTINCT 
-	(select id from pais where nombre = PAIS_DEL_INVENTOR) as pais, 
-	(select id from pais where nombre = FRONTERA_CON) as frontera,  
-	CAST(NORTE AS CHAR), 
-	CAST(SUR AS CHAR), 
-	CAST(ESTE AS CHAR), 
-	CAST(OESTE AS CHAR) 
-	FROM TEMP T
-) T1
-WHERE frontera = null;
+
+
+
+
+
+
+
 
     
     
