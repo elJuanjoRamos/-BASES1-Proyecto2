@@ -263,20 +263,16 @@ $$
 DELIMITER $$
 CREATE PROCEDURE INSERT_PAIS_RESPUESTA()
 BEGIN
-	INSERT INTO Pais_Respuesta(pais, pregunta, letra) 
+	INSERT INTO Pais_Respuesta(pais, pregunta, encuesta, letra) 
 	SELECT DISTINCT 
-    (SELECT ID FROM PAIS WHERE nombre = TRIM(C2.PAIS)), 
-    (SELECT ID FROM PREGUNTA WHERE pregunta = C2.PREGUNTA), 
-    RESPUESTA_PAIS FROM Carga2 C2;
+	(SELECT ID FROM PAIS WHERE nombre = TRIM(C2.PAIS)) AS pais, 
+	(SELECT ID FROM PREGUNTA WHERE pregunta = C2.PREGUNTA) AS pregunta, 
+	(SELECT ID FROM ENCUESTA WHERE nombre = C2.NOMBRE_ENCUESTA) AS encuesta,
+	RESPUESTA_PAIS FROM Carga2 C2;
 END;
 $$
     
 	
-
-
-
-
-
 
 
 

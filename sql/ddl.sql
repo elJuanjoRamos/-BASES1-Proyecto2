@@ -167,8 +167,10 @@ CREATE TABLE Pais_Respuesta(
 	id int primary key auto_increment,
 	pais int not null,
     pregunta int not null,
+    encuesta int not null,
     letra char not null,
 	FOREIGN KEY(pais) references Pais(id),
+    FOREIGN KEY(encuesta) references Encuesta(id),
     FOREIGN KEY(pregunta) references Pregunta(id)
 );
 

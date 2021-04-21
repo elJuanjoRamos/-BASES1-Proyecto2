@@ -90,5 +90,31 @@ GROUP BY pais) T
 WHERE T.cant_fronteras >= 7
 ORDER BY area desc;
 
+/*CONSULTA 12*/
+
+SELECT Invento.id, Invento.nombre, anio, P.nombre FROM Invento
+JOIN Pais P on P.id = Invento.pais
+WHERE SUBSTR(Invento.nombre, 1,1) = 'L';
+/*CONSULTA 13*/
+
+SELECT id, nombre, salario, contrato, comision, (salario+comision) as total_Salario FROM Profesional
+WHERE Comision != ""
+AND 0.25*salario < TRUNCATE(CAST(comision AS DECIMAL(6,2)),0);
+
+/*CONSULTA 14*/
+
+SELECT encuesta as id, E.nombre as Nombre_Encuesta, COUNT(pais) as total_paises FROM Pais_Respuesta
+JOIN Encuesta E on E.id = Pais_Respuesta.encuesta
+GROUP BY encuesta
+ORDER BY total_paises DESC;
+
+/*CONSULTA 15*/
+SELECT P.id, P.nombre, P.poblacion, P.area, P.capital, R.nombre, C.nombre FROM Pais P 
+JOIN Region R on P.region = R.id
+JOIN Continente C on R.idContinente = C.id
+WHERE P.poblacion  > (SELECT sum(poblacion) as total_poblacion_ca FROM PAIS P1
+JOIN Region R on P1.region = R.id
+where R.nombre = 'Centro America');
 
 
+/*CONSULTA 16*/
