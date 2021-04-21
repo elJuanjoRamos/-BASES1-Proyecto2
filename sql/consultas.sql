@@ -86,35 +86,3 @@ AND
 
 
 
-
-
-
-
-SELECT DISTINCT TRIM((SELECT SPLIT_STRING(INVENTOR,';',2))) as uno,
-(SELECT id FROM Pais where nombre = PAIS_DEL_INVENTOR) as pais
-FROM TEMP 
-WHERE INVENTOR LIKE '%;%';
-
-
-
-
-
-
-SET @agg = "G1;G2;G3;G4;" ;
-
-SELECT SPLIT_STRING(@agg,';',1) ;
-SELECT SPLIT_STRING(@agg,';',2) ;
-SELECT SPLIT_STRING(@agg,';',3) ;
-SELECT SPLIT_STRING(@agg,';',4) ;
-SELECT SPLIT_STRING(@agg,';',5) ;
-SELECT SPLIT_STRING(@agg,';',6) ;
-
-
-
-
-
-SELECT DISTINCT INVENTOR
-FROM TEMP 
-WHERE 
-
-

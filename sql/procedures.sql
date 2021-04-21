@@ -72,23 +72,31 @@ BEGIN
     INVENTOR != ""
     AND
     INVENTOR NOT LIKE '%;%';
+    
     INSERT INTO Inventor(nombre, pais) 
     SELECT DISTINCT TRIM((SELECT SPLIT_STRING(INVENTOR,';',1))) as uno,
 	(SELECT id FROM Pais where nombre = PAIS_DEL_INVENTOR) as pais
 	FROM TEMP 
-	WHERE INVENTOR LIKE '%;%';
+	WHERE INVENTOR LIKE '%;%'
+    AND NOT EXISTS(SELECT nombre from Inventor where nombre = TRIM((SELECT SPLIT_STRING(INVENTOR,';',1))));
+    
+    
     INSERT INTO Inventor(nombre, pais) 
     SELECT DISTINCT TRIM((SELECT SPLIT_STRING(INVENTOR,';',2))) as dos,
 	(SELECT id FROM Pais where nombre = PAIS_DEL_INVENTOR) as pais
 	FROM TEMP 
-	WHERE INVENTOR LIKE '%;%';
-    INSERT INTO Inventor(nombre, pais) 
+	WHERE INVENTOR LIKE '%;%'
+    AND NOT EXISTS(SELECT nombre from Inventor where nombre = TRIM((SELECT SPLIT_STRING(INVENTOR,';',2))));
+    
+    
+    INSERT IGNORE INTO Inventor(nombre, pais) 
     SELECT DISTINCT TRIM((SELECT SPLIT_STRING(INVENTOR,';',3))) as tres,
 	(SELECT id FROM Pais where nombre = PAIS_DEL_INVENTOR) as pais
 	FROM TEMP 
 	WHERE INVENTOR LIKE '%;%'
-	AND TRIM((SELECT SPLIT_STRING(INVENTOR,';',3))) IS NOT NULL;
-
+	AND TRIM((SELECT SPLIT_STRING(INVENTOR,';',3))) IS NOT NULL
+    AND NOT EXISTS(SELECT nombre from Inventor where nombre = TRIM((SELECT SPLIT_STRING(INVENTOR,';',3))));
+    
 END;
 $$
 
@@ -107,10 +115,41 @@ $$
 DELIMITER $$
 CREATE PROCEDURE INSERT_INVENTO_INVENTO()
 BEGIN
-	INSERT INTO Inventor_Invento(idInvento, idInventor) 
-	SELECT DISTINCT (SELECT id from Invento where nombre = INVENTO and anio = ANIO_DEL_INVENTO), (SELECT id from Inventor where nombre = INVENTOR)
+	INSERT INTO Inventor_Invento(idInvento, idInventor)
+	SELECT DISTINCT 
+	(SELECT id from Invento where nombre = INVENTO and anio = ANIO_DEL_INVENTO) AS idInvento, 
+	(SELECT id from Inventor where nombre = INVENTOR) AS idInventor
 	FROM TEMP T
-    WHERE INVENTO != "";    
+	WHERE INVENTO != ""
+	AND INVENTOR NOT LIKE '%;%';  
+    
+    INSERT INTO Inventor_Invento(idInvento, idInventor)
+	SELECT DISTINCT 
+	(SELECT id from Invento where nombre = INVENTO and anio = ANIO_DEL_INVENTO) AS idInvento, 
+	(SELECT id from Inventor where nombre = TRIM((SELECT SPLIT_STRING(INVENTOR,';',1)))) AS idUno
+	FROM TEMP T
+	WHERE INVENTO != ""
+	AND INVENTOR LIKE '%;%';  
+    
+    INSERT INTO Inventor_Invento(idInvento, idInventor)
+	SELECT DISTINCT 
+	(SELECT id from Invento where nombre = INVENTO and anio = ANIO_DEL_INVENTO) AS idInvento, 
+	(SELECT id from Inventor where nombre = TRIM((SELECT SPLIT_STRING(INVENTOR,';',2)))) AS idDos
+	FROM TEMP T
+	WHERE INVENTO != ""
+	AND INVENTOR LIKE '%;%';  
+    
+	
+    INSERT INTO Inventor_Invento(idInvento, idInventor)
+    SELECT DISTINCT 
+	(SELECT id from Invento where nombre = INVENTO and anio = ANIO_DEL_INVENTO) AS idInvento, 
+	(SELECT id from Inventor where nombre = TRIM((SELECT SPLIT_STRING(INVENTOR,';',3)))) AS idTres
+	FROM TEMP T
+	WHERE INVENTO != ""
+	AND INVENTOR LIKE '%;%'
+	AND (SELECT SPLIT_STRING(INVENTOR,';',3)) IS NOT NULL;  
+
+    
 END;
 $$
 
