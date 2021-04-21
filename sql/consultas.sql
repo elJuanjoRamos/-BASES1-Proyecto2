@@ -55,11 +55,21 @@ JOIN Profe_Area PA on P.id = PA.profesional
 JOIN Area A on PA.area = A.id
 WHERE A.nombre = 'optica';
 
+/*CONSULTA 8*/
+select SUBSTR(nombre, 1,1) AS inicial_muicipio, sum(area) AS total_area  FROM Pais
+group by SUBSTR(nombre, 1,1)
+order by inicial_muicipio asc;
+
+/*CONSULTA 9*/
+
+SELECT IR.nombre as Inventor, I.nombre as Invento, I.anio as Anio_Invento, P.nombre as Pais_Invento FROM Inventor_Invento II
+JOIN Invento I on I.id = II.idinvento
+JOIN Inventor IR on IR.id = II.idInventor
+JOIN Pais P on P.id = IR.pais
+WHERE SUBSTR(IR.nombre, 1,2) = 'Be';
 
 
-
-    
-    
+SELECT * FROM TEMP WHERE 
 
 
 
