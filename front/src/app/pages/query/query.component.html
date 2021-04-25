@@ -1,0 +1,91 @@
+<header class="page-header">
+    <div class="container-fluid">
+      <h2 class="no-margin-bottom">Query</h2>
+    </div>
+  </header>
+<ul class="breadcrumb">
+    <div class="container-fluid">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item active">Query</li>
+    </div>
+  </ul>
+
+  <section class="tables">   
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-4">
+            <div class="card">
+              <div class="card-close">
+                <div class="dropdown">
+                  <button type="button" id="closeCard" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
+                  <div aria-labelledby="closeCard" class="dropdown-menu has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a><a href="#" class="dropdown-item edit"> <i class="fa fa-gear"></i>Edit</a></div>
+                </div>
+              </div>
+              <div class="card-header d-flex align-items-center">
+                <h3 class="h4">Query Selector</h3>
+              </div>
+              <div class="card-body">
+                <p>Enter the query number you want to see.</p>
+                <form>
+                  <div class="form-group">
+                    <label class="form-control-label">Query</label>
+                    <input type="number" #idquery placeholder="Query Id" class="form-control">
+                  </div>
+                  <div class="form-group">       
+                    <input type="button" (click)="send_query(idquery.value)" value="Go" class="btn btn-primary">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        <div class="col-lg-8">
+          <div class="card">
+            <div class="card-close">
+              <div class="dropdown">
+                <button type="button" id="closeCard" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
+                <div aria-labelledby="closeCard" class="dropdown-menu has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a><a href="#" class="dropdown-item edit"> <i class="fa fa-gear"></i>Edit</a></div>
+              </div>
+            </div>
+            <div class="card-header d-flex align-items-center">
+              <h3 class="h4">Results of Query</h3>
+            </div>
+            <div class="card-body" >
+              <table class="table table-striped" *ngIf="id_general == 1">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Profesional</th>
+                    <th>Inventos Asignados</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of results">
+                    <td>{{ data.profesional }}</td>
+                    <td>{{ data.NOMBRE_PROFESIONAL }}</td>
+                    <td>{{ data.inventos_asignados}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-striped" *ngIf="id_general == 2">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Pais</th>
+                    <th>Cant Respuestas</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of results">
+                    <td>{{ data.idPais }}</td>
+                    <td>{{ data.nombre }}</td>
+                    <td>{{ data.total_respuestas}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </section>

@@ -10,7 +10,7 @@ var ConsultaController = /** @class */ (function () {
             var id = req.params.id;
             console.log(id);
             var query = "";
-            switch (Number(id)) {
+            switch (parseInt(id)) {
                 case 1:
                     query =
                         "SELECT profesional, P.nombre AS NOMBRE_PROFESIONAL, COUNT(*) as inventos_asignados FROM Asignacion_Invento AI " +
@@ -24,6 +24,7 @@ var ConsultaController = /** @class */ (function () {
                             "GROUP BY PR.pais " +
                             "ORDER BY PR.pais  ASC;";
                 case 3:
+                    console.log("entro a tres");
                     query =
                         "SELECT id, nombre FROM PAIS " +
                             "WHERE id not in(SELECT DISTINCT PAIS FROM Inventor) " +
@@ -141,13 +142,8 @@ var ConsultaController = /** @class */ (function () {
                         "SELECT id, nombre, salario, contrato, comision, (salario+comision) as total_Salario FROM Profesional " +
                             "WHERE Comision != \"\"" +
                             "AND salario > 2*TRUNCATE(CAST(comision AS DECIMAL(6,2)),0);";
-                default:
-                    query =
-                        "SELECT profesional, P.nombre AS NOMBRE_PROFESIONAL, COUNT(*) as inventos_asignados FROM Asignacion_Invento AI " +
-                            "JOIN Profesional P on P.id = AI.profesional " +
-                            "GROUP BY profesional " +
-                            "ORDER BY inventos_asignados desc; ";
             }
+            console.log(query);
             mysql_1.default.sendQuery(query, [], function (err, data) {
                 if (err) {
                     res.status(400).json({

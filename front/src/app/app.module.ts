@@ -10,6 +10,8 @@ import { TablesComponent } from './pages/tables/tables.component';
 import { PagesComponent } from './pages/pages.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { QueryComponent } from './pages/query/query.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,11 +21,13 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     TablesComponent,
     PagesComponent,
     SidebarComponent,
-    NavbarComponent
+    NavbarComponent,
+    QueryComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule
   ],
   providers: [],
