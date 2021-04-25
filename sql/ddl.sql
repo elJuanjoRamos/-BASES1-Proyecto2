@@ -174,6 +174,17 @@ CREATE TABLE Pais_Respuesta(
     FOREIGN KEY(pregunta) references Pregunta(id)
 );
 
+/*VISTAS*/
+/*CONSULTA 5*/
+CREATE VIEW C51 AS
+SELECT P1.nombre, PA.area,  P1.salario FROM Profe_Area PA
+JOIN Profesional P1 on PA.profesional = P1.id
+ORDER BY area asc;
+CREATE VIEW C52 AS
+SELECT area, sum(salario) as total_salario, Count(area) as total_empleados, Round(sum(salario)/Count(area),2) as prom_salario from C51
+GROUP BY area
+ORDER BY area asc;
+
 
 
 /*CARGA 1*/

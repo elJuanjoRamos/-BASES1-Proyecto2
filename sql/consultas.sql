@@ -29,23 +29,22 @@ JOIN Profesional P1 on PA.profesional = P1.id
 ORDER BY Jefe_Area ASC;
 
 /*CONSULTA 5*/
-CREATE VIEW C51 AS
-SELECT P1.nombre, PA.area,  P1.salario FROM Profe_Area PA
-JOIN Profesional P1 on PA.profesional = P1.id
-ORDER BY area asc;
-CREATE VIEW C52 AS
-SELECT area, sum(salario) as total_salario, Count(area) as total_empleados, Round(sum(salario)/Count(area),2) as prom_salario from C51
-GROUP BY area
-ORDER BY area asc;
+
 
 SELECT P1.nombre, PA.area,  P1.salario FROM Profe_Area PA
 JOIN Profesional P1 on PA.profesional = P1.id
 WHERE P1.salario > (SELECT prom_salario FROM C52 WHERE area = PA.area)
 ORDER BY area asc;
 
-
-
 /*CONSULTA 6*/
+SELECT P.nombre,  COUNT(*) AS TOTAL_ACIERTOS FROM Pais_Respuesta PR
+JOIN Pais P on PR.pais = P.id
+JOIN Pregunta P1 on PR.pregunta = P1.id
+JOIN Respuesta_correcta RC on RC.pregunta = PR.pregunta
+WHERE TRIM(SUBSTR(RC.respuesta, 1,1)) = letra
+group by P.nombre ORDER BY TOTAL_ACIERTOS DESC;
+
+
 
 /*CONSULTA 7*/
 SELECT P.nombre as Investigador, AI.invento as idInvento, I.nombre as invento, I.anio FROM Asignacion_Invento AI
@@ -74,14 +73,10 @@ SELECT IR.nombre as Inventor, I.nombre as Invento, I.anio as Anio_Invento, P.nom
 JOIN Invento I on I.id = II.idinvento
 JOIN Inventor IR on IR.id = II.idInventor
 JOIN Pais P on P.id = IR.pais
-WHERE 
-SUBSTR(IR.nombre, 1,1) = 'B'
-AND
-(RIGHT(IR.nombre, 1) = 'r'
-OR
-RIGHT(IR.nombre, 1) = 'n')
-AND
-(1801 <= I.anio AND I.anio <= 1900);
+WHERE SUBSTR(IR.nombre, 1,1) = 'B'
+AND (RIGHT(IR.nombre, 1) = 'r'
+OR RIGHT(IR.nombre, 1) = 'n')
+AND (1801 <= I.anio AND I.anio <= 1900);
 
 /*CONSULTA 11*/
 SELECT * FROM (SELECT pais, P.nombre as nombre, P.area as area, count(*) as cant_fronteras FROM Frontera
@@ -124,8 +119,7 @@ where R.nombre = 'Centro America');
 SELECT I.nombre as invento, INV.nombre as inventor FROM Inventor_Invento II 
 JOIN Invento I ON II.idInvento = I.id
 JOIN Inventor INV ON II.idInventor = INV.id
-WHERE I.anio = ( 
-SELECT I.anio FROM Inventor_Invento II
+WHERE I.anio = ( SELECT I.anio FROM Inventor_Invento II
 JOIN Invento I ON II.idInvento = I.id
 JOIN Inventor INV ON II.idInventor = INV.id
 WHERE INV.nombre = 'BENZ');
@@ -145,4 +139,7 @@ JOIN Pais P1 on F.front = P1.id
 WHERE F.front IS NOT NULL;
 
 /*CONSULTA 20*/
+SELECT id, nombre, salario, contrato, comision, (salario+comision) as total_Salario FROM Profesional
+WHERE Comision != ""
+AND salario > 2*TRUNCATE(CAST(comision AS DECIMAL(6,2)),0);
 

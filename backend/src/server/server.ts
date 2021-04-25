@@ -2,7 +2,6 @@ import express = require('express');
 import socketIO = require('socket.io');
 import path = require('path');
 import http = require('http');
-import SocketServer from "../socket/socket";
 import MySQL from "../mysql/mysql";
 
 export default class Server {
@@ -27,26 +26,6 @@ export default class Server {
 
     start(callback: any) {
         this.app.listen(this.port, callback);
-        this.publicFolder();
-    }
-
-    /**
-     * SOCKET.IO
-     */
-    startSocket(callback: any) {
-        let io = socketIO(this.serverSocket);
-        
-        /**
-         * INSTANCIA DE SOCKETS
-         */
-        SocketServer.getInstance().listenServer(io);
-        
-        /**
-         * INSTANCIA DE MYSQL
-         */
-        MySQL.getInstance();
-
-        this.serverSocket.listen(this.port, callback);
         this.publicFolder();
     }
 

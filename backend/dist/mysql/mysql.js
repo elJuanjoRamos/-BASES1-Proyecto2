@@ -5,18 +5,18 @@ var MySQL = /** @class */ (function () {
     function MySQL() {
         this.state = false;
         console.log("MYSQL Inicializada");
-        /*this.connection = mysql.createConnection({
+        this.connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
             password: '1234',
-            database: 'Practica1'
-        });*/
-        this.connection = mysql.createConnection({
+            database: 'Proyecto2'
+        });
+        /*this.connection = mysql.createConnection({
             host: 'alquimistappbackend.com',
             user: 'alquimj8_practica1',
             password: 'Pr@ctica1',
             database: 'alquimj8_practica1_arqui2'
-        });
+        });*/
         this.conectarDB();
     }
     MySQL.getInstance = function () {
