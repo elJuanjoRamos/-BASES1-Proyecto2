@@ -40,7 +40,7 @@ var QuestionController = /** @class */ (function () {
         this.postQuestion = function (req, res) {
             console.log(req.body);
             var _a = req.body, pregunta = _a.pregunta, encuesta = _a.encuesta;
-            var query = "INSERT INTO Pregunta(pregunta, encuesta) " +
+            var query = "INSERT INTO Pregunta(pregunta, encuensta) " +
                 " VALUES(?, ?);";
             mysql_1.default.sendQuery(query, [pregunta, encuesta], function (err, data) {
                 if (err) {
@@ -75,7 +75,7 @@ var QuestionController = /** @class */ (function () {
             var id = req.params.id;
             var _a = req.body, pregunta = _a.pregunta, encuesta = _a.encuesta;
             console.log(req.body);
-            var query = "UPDATE Pregunta SET pregunta =?, encuesta =? WHERE id = ?";
+            var query = "UPDATE Pregunta SET pregunta =?, encuensta =? WHERE id = ?";
             mysql_1.default.sendQuery(query, [pregunta, encuesta, id], function (err, data) {
                 if (err) {
                     res.status(400).json({

@@ -17,7 +17,12 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-close">
-                <button type="button" data-toggle="modal" data-target="#modalAgregar" class="btn btn-primary">New Country </button>
+              <div class="input-group">
+                <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search">
+                <span class="input-group-btn">
+                    <button type="button" data-toggle="modal" data-target="#modalAgregar" class="btn btn-primary">New Country </button>
+                </span>
+              </div>
             </div>
             <br>
             <div class="card-header d-flex align-items-center">
@@ -37,7 +42,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let pais of array_pais">
+                  <tr *ngFor="let pais of array_pais | paginate: { itemsPerPage: 10, currentPage: p }| filter:searchText">
                     <th scope="row">{{ pais.id }}</th>
                     <td>{{ pais.nombre }}</td>
                     <td>{{ pais.poblacion }}</td>
@@ -55,6 +60,7 @@
                   </tr>
                 </tbody>
               </table>
+              <pagination-controls class="text-center" (pageChange)="p = $event"></pagination-controls>
             </div>
           </div>
         </div>

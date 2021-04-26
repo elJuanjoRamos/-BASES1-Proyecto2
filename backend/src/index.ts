@@ -1,6 +1,7 @@
 import Server from "./server/server";
 import consulta from "./router/consulta.routes";
 import pais from "./router/pais.routes";
+import question from "./router/question.routes";
 
 import bodyParser = require('body-parser');
 
@@ -36,6 +37,7 @@ server.app.use(bodyParser.urlencoded({ extended: false }))
  */
 server.app.use(api, consulta);
 server.app.use(api, pais);
+server.app.use(api, question);
 
 
 server.start(()=> {

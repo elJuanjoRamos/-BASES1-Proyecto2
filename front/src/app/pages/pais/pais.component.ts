@@ -19,7 +19,8 @@ export class PaisComponent implements OnInit {
   poblacion:string;
   area1:string;
   capital1:string;
-
+  p: number = 1;
+  searchText;
   constructor(private pais_service: PaisService) { }
 
   ngOnInit(): void {
@@ -36,9 +37,6 @@ export class PaisComponent implements OnInit {
       this.array_region = data;
     });
 
-    setTimeout(() => {
-      $('#myTable').DataTable();
-    }, 1000);
   }
 
   save_country(country: string, poblation:string, area:string, capital:string, region:number){

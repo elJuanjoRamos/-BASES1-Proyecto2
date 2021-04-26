@@ -52,7 +52,7 @@ export default class QuestionController {
 
         const { pregunta, encuesta } = req.body;  
 
-        var query = "INSERT INTO Pregunta(pregunta, encuesta) "+
+        var query = "INSERT INTO Pregunta(pregunta, encuensta) "+
         " VALUES(?, ?);";
         MySQL.sendQuery(query, [pregunta, encuesta], (err:any, data:Object[]) => {
             if(err) {
@@ -92,7 +92,7 @@ export default class QuestionController {
 
         console.log(req.body)
 
-        var query = "UPDATE Pregunta SET pregunta =?, encuesta =? WHERE id = ?";
+        var query = "UPDATE Pregunta SET pregunta =?, encuensta =? WHERE id = ?";
         MySQL.sendQuery(query, [pregunta, encuesta, id], (err:any, data:Object[]) => {
             if(err) {
                 res.status(400).json({

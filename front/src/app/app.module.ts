@@ -14,7 +14,9 @@ import { QueryComponent } from './pages/query/query.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PaisComponent } from './pages/pais/pais.component';
 import { QuestionComponent } from './pages/question/question.component';
-
+import {NgxPaginationModule} from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +34,10 @@ import { QuestionComponent } from './pages/question/question.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxPaginationModule,
+    Ng2SearchPipeModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
