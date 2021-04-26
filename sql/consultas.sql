@@ -31,8 +31,9 @@ ORDER BY Jefe_Area ASC;
 /*CONSULTA 5*/
 
 
-SELECT P1.nombre, PA.area,  P1.salario FROM Profe_Area PA
+SELECT P1.nombre as proesional, PA.area as id, A.nombre as area,  P1.salario FROM Profe_Area PA
 JOIN Profesional P1 on PA.profesional = P1.id
+JOIN Area A on PA.area = A.id
 WHERE P1.salario > (SELECT prom_salario FROM C52 WHERE area = PA.area)
 ORDER BY area asc;
 
@@ -55,9 +56,10 @@ JOIN Area A on PA.area = A.id
 WHERE A.nombre = 'optica';
 
 /*CONSULTA 8*/
+
 select SUBSTR(nombre, 1,1) AS inicial_pais, sum(area) AS total_area  FROM Pais
 group by SUBSTR(nombre, 1,1)
-order by inicial_muicipio asc;
+order by inicial_pais asc;
 
 /*CONSULTA 9*/
 

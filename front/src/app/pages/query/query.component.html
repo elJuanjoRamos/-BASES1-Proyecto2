@@ -82,6 +82,260 @@
                   </tr>
                 </tbody>
               </table>
+              <table class="table table-striped" *ngIf="id_general == 3">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Pais</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of results">
+                    <td>{{ data.id }}</td>
+                    <td>{{ data.nombre }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-striped" *ngIf="id_general == 4">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Area</th>
+                    <th>Jefe Area</th>
+                    <th>Subordinado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of results">
+                    <td>{{ data.id }}</td>
+                    <td>{{ data.area }}</td>
+                    <td>{{ data.Jefe_Area }}</td>
+                    <td>{{ data.subordinado }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-striped" *ngIf="id_general == 5">
+                <thead>
+                  <tr>
+                    <th>Profesional</th>
+                    <th>Area</th>
+                    <th>Salario</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of results">
+                    <td>{{ data.proesional }}</td>
+                    <td>{{ data.area }}</td>
+                    <td>${{ data.salario }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-striped" *ngIf="id_general == 6">
+                <thead>
+                  <tr>
+                    <th>Pais</th>
+                    <th>Total Aciertos</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of results">
+                    <td>{{ data.nombre }}</td>
+                    <td>{{ data.TOTAL_ACIERTOS }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-striped" *ngIf="id_general == 7">
+                <thead>
+                  <tr>
+                    <th>Investigador</th>
+                    <th>Invento</th>
+                    <th>Año </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of results">
+                    <td>{{ data.Investigador }}</td>
+                    <td>{{ data.invento }}</td>
+                    <td>{{ data.anio }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-striped" *ngIf="id_general == 8">
+                <thead>
+                  <tr>
+                    <th>Investigador</th>
+                    <th>Invento</th>
+                    <th>Año </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of results">
+                    <td>{{ data.Investigador }}</td>
+                    <td>{{ data.invento }}</td>
+                    <td>{{ data.anio }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-striped" *ngIf="id_general == 9 || id_general == 10">
+                <thead>
+                  <tr>
+                    <th>Inventor</th>
+                    <th>Invento</th>
+                    <th>Año </th>
+                    <th>Pais </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of results">
+                    <td>{{ data.Inventor }}</td>
+                    <td>{{ data.Invento }}</td>
+                    <td>{{ data.Anio_Invento }}</td>
+                    <td>{{ data.Pais_Invento }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-striped" *ngIf="id_general == 11">
+                <thead>
+                  <tr>
+                    <th>Pais</th>
+                    <th>Nombre</th>
+                    <th>Area</th>
+                    <th>Cantidad Fronteras</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of results">
+                    <td>{{ data.pais }}</td>
+                    <td>{{ data.nombre }}</td>
+                    <td>{{ data.area }}</td>
+                    <td>{{ data.cant_fronteras }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-striped" *ngIf="id_general == 12">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Invento</th>
+                    <th>Año </th>
+                    <th>Pais </th>          
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of results">
+                    <td>{{ data.id }}</td>
+                    <td>{{ data.nombre }}</td>
+                    <td>{{ data.anio }}</td>
+                    <td>{{ data.pais }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-striped" *ngIf="id_general == 13 || id_general == 20">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Salario </th>
+                    <th>Fecha Contrato </th>          
+                    <th>Comision </th>          
+                    <th>Total Salario </th>          
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of results">
+                    <td>{{ data.id }}</td>
+                    <td>{{ data.nombre }}</td>
+                    <td>{{ data.salario }}</td>
+                    <td>{{ data.contrato }}</td>
+                    <td>{{ data.comision }}</td>
+                    <td>{{ data.total_Salario }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-striped" *ngIf="id_general == 14">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Encuesta</th>
+                    <th>Total Paises </th>          
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of results">
+                    <td>{{ data.id }}</td>
+                    <td>{{ data.Nombre_Encuesta }}</td>
+                    <td>{{ data.total_paises }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-striped" *ngIf="id_general == 15">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Poblacion </th>
+                    <th>Area </th>          
+                    <th>Capital </th>          
+                    <th>Region </th>          
+                    <th>Continente </th>          
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of results">
+                    <td>{{ data.id }}</td>
+                    <td>{{ data.nombre }}</td>
+                    <td>{{ data.poblacion }}</td>
+                    <td>{{ data.area }}</td>
+                    <td>{{ data.capital }}</td>
+                    <td>{{ data.region }}</td>
+                    <td>{{ data.continente }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-striped" *ngIf="id_general == 17">
+                <thead>
+                  <tr>
+                    <th>Invento</th>
+                    <th>Inventor</th>          
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of results">
+                    <td>{{ data.invento }}</td>
+                    <td>{{ data.inventor }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-striped" *ngIf="id_general == 18">
+                <thead>
+                  <tr>
+                    <th>Pais</th>
+                    <th>Poblacion</th>          
+                    <th>Area</th>          
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of results">
+                    <td>{{ data.nombre }}</td>
+                    <td>{{ data.poblacion }}</td>
+                    <td>{{ data.area }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-striped" *ngIf="id_general == 19">
+                <thead>
+                  <tr>
+                    <th>Pais</th>
+                    <th>Frontera</th>          
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of results">
+                    <td>{{ data.Pais }}</td>
+                    <td>{{ data.Frontera }}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
