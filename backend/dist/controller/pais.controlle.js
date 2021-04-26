@@ -72,6 +72,40 @@ var PaisController = /** @class */ (function () {
                 }
             });
         };
+        this.deletePais = function (req, res) {
+            var id = req.params.id;
+            var query = "DELETE FROM Pais WHERE id = ?";
+            mysql_1.default.sendQuery(query, [id], function (err, data) {
+                if (err) {
+                    res.status(400).json({
+                        ok: false,
+                        status: 400,
+                        error: err
+                    });
+                }
+                else {
+                    res.json({ "mensaje": "Eliminado" });
+                }
+            });
+        };
+        this.updatePais = function (req, res) {
+            var id = req.params.id;
+            var _a = req.body, country = _a.country, poblation = _a.poblation, area = _a.area, capital = _a.capital, region = _a.region;
+            console.log(req.body);
+            var query = "UPDATE Pais SET nombre =?, poblacion =?, area =?, capital =?, region =? WHERE id = ?";
+            mysql_1.default.sendQuery(query, [country, poblation, area, capital, region, id], function (err, data) {
+                if (err) {
+                    res.status(400).json({
+                        ok: false,
+                        status: 400,
+                        error: err
+                    });
+                }
+                else {
+                    res.json(data);
+                }
+            });
+        };
     }
     PaisController.getInstance = function () {
         return this._instance || (this._instance = new this());

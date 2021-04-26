@@ -83,4 +83,41 @@ export default class PaisController {
         })    
         
     }
+    deletePais = (req: Request, res: Response) => {
+
+        var id = req.params.id;
+        var query = "DELETE FROM Pais WHERE id = ?";
+        MySQL.sendQuery(query, [id], (err:any, data:Object[]) => {
+            if(err) {
+                res.status(400).json({
+                    ok: false,
+                    status: 400,
+                    error: err
+                });
+            } else {
+                res.json({"mensaje" : "Eliminado"})
+            }
+        })    
+        
+    }
+    updatePais = (req: Request, res: Response) => {
+
+        var id = req.params.id;
+        const { country, poblation, area, capital, region } = req.body;  
+
+        console.log(req.body)
+
+        var query = "UPDATE Pais SET nombre =?, poblacion =?, area =?, capital =?, region =? WHERE id = ?";
+        MySQL.sendQuery(query, [country, poblation, area, capital, region, id], (err:any, data:Object[]) => {
+            if(err) {
+                res.status(400).json({
+                    ok: false,
+                    status: 400,
+                    error: err
+                });
+            } else {
+                res.json(data)
+            }
+        });           
+    }
 }

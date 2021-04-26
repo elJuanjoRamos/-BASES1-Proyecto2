@@ -33,6 +33,7 @@
                     <th>Area</th>
                     <th>Capital</th>
                     <th>Region</th>
+                    <th>Options</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -43,6 +44,14 @@
                     <td>{{ pais.area }}</td>
                     <td>{{ pais.capital }}</td>
                     <td>{{ pais.region }}</td>
+                    <td>
+                        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                            <div class="btn-group mr-2" role="group" aria-label="First group">
+                              <button type="button" (click)="delete(pais.id)" class="btn btn-secondary"><i class="fa fa-trash"></i></button>
+                              <button type="button" data-toggle="modal" data-target="#modalEditar" (click)="set_Country(pais)" class="btn btn-secondary"><i class="fa fa-pencil"></i></button>
+                            </div>
+                          </div>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -93,6 +102,51 @@
         <div class="modal-footer">
           <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
           <button type="button" (click)="save_country(name.value, poblation.value, area.value, capital.value, region.value)" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" class="modal fade text-left" aria-hidden="true" style="display: none;">
+    <div role="document" class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="exampleModalLabel" class="modal-title">Update Country</h4>
+          <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" placeholder="Name" value="{{nombre}}"  #name2 class="form-control">
+            </div>
+            <div class="form-group">       
+              <label>Poblation</label>
+              <input type="number" placeholder="Poblation" value="{{poblacion}}" #poblation2 class="form-control">
+            </div>
+            <div class="form-group">       
+                <label>Area</label>
+                <input type="number" placeholder="Area" value="{{area1}}" #area2  class="form-control">
+              </div>
+              <div class="form-group">       
+                <label>Capital</label>
+                <input type="text" placeholder="Capital" value="{{capital1}}" #capital2  class="form-control">
+              </div>
+              <div class="form-group">       
+                <label>Region</label>
+                <select name="" class="form-control" #region2 id="">
+                    <option *ngFor="let region of array_region" value="{{ region.id }}">{{ region.nombre }}</option>
+                </select>
+              </div>
+              <div class="form-group text-center" *ngIf="showAletr"> 
+                <div class="badge badge-rounded bg-red"> You must fill in all the fields </div>
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
+          <button type="button" (click)="update_country(name2.value, poblation2.value, area2.value, capital2.value, region2.value)" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>

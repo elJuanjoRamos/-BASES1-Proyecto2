@@ -10,4 +10,6 @@ router.get('/pais/get_all', pais_controlle_1.default.getInstance().getAll);
 router.get('/pais/get/:id', pais_controlle_1.default.getInstance().getPais);
 router.get('/pais/region', pais_controlle_1.default.getInstance().getRegion);
 router.post('/pais/add', pais_controlle_1.default.getInstance().postPais);
+router.delete('/pais/delete/:id', pais_controlle_1.default.getInstance().deletePais);
+router.put('/pais/update/:id', pais_controlle_1.default.getInstance().updatePais);
 exports.default = router;

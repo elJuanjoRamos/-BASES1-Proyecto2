@@ -31,6 +31,22 @@ export class PaisService {
           return data;
       }));
   }
+
+  delete(id_country:any) {
+    var headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.delete(`${this.URI}/delete/${id_country}`, { headers }).pipe(map(data => {
+      console.log(data);
+        return data;
+    }));
+  }
+
+  put(any:any, id:any) {
+      let data = JSON.stringify(any);
+      var headers = new HttpHeaders({'Content-Type': 'application/json'});
+      return this.http.put(`${this.URI}/update/${id}`, data, { headers }).pipe(map(data => {
+          return data;
+      }));
+  }
   
 
 
