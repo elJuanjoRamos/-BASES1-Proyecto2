@@ -3,6 +3,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PaisComponent } from './pais/pais.component';
 import { QueryComponent } from './query/query.component';
 import { QuestionComponent } from './question/question.component';
+import { ResponceComponent } from './responce/responce.component';
 import { TablesComponent } from './tables/tables.component';
 
 
@@ -13,6 +14,7 @@ export const page_routes: Routes = [
     { path: 'query', component: QueryComponent },
     { path: 'country', component: PaisComponent },
     { path: 'question', component: QuestionComponent },
+    { path: 'responce', component: ResponceComponent },
     
     {path: '**', pathMatch: 'full', redirectTo: 'admin'}
   ];

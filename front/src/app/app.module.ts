@@ -17,6 +17,8 @@ import { QuestionComponent } from './pages/question/question.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FormsModule } from '@angular/forms';
+import { ResponceComponent } from './pages/responce/responce.component';
+import { InventorComponent } from './pages/inventor/inventor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +30,9 @@ import { FormsModule } from '@angular/forms';
     NavbarComponent,
     QueryComponent,
     PaisComponent,
-    QuestionComponent
+    QuestionComponent,
+    ResponceComponent,
+    InventorComponent
   ],
   imports: [
     BrowserModule,

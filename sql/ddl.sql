@@ -159,6 +159,7 @@ CREATE TABLE Respuesta(
 CREATE TABLE Respuesta_correcta(
 	id int primary key auto_increment,
 	respuesta varchar(150) null,
+    idRespuesta int not null,
     pregunta int not null,
     FOREIGN KEY(pregunta) references Pregunta(id)
 );

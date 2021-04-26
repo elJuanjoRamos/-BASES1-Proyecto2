@@ -250,11 +250,12 @@ $$
 DELIMITER $$
 CREATE PROCEDURE INSERT_RESPUESTA_CORRECTA()
 BEGIN
-	INSERT INTO Respuesta_correcta(respuesta, pregunta) 
-	SELECT DISTINCT RESPUESTA_CORRECTA, (SELECT ID FROM PREGUNTA WHERE pregunta = C2.PREGUNTA) FROM Carga2 C2
-    WHERE RESPUESTA_CORRECTA != "";
-	INSERT INTO Respuesta_correcta(respuesta, pregunta) 
-	SELECT DISTINCT NULL, (SELECT ID FROM PREGUNTA WHERE pregunta = C2.PREGUNTA) FROM Carga2 C2
+	INSERT INTO Respuesta_correcta(respuesta, idRespuesta, pregunta) 
+	SELECT RESPUESTA_CORRECTA, (SELECT ID FROM Respuesta WHERE respuesta = T.RESPUESTA_CORRECTA AND pregunta = T.pregunta ) as idRespuesta, pregunta FROM (SELECT DISTINCT RESPUESTA_CORRECTA, 
+    (SELECT ID FROM PREGUNTA WHERE pregunta = C2.PREGUNTA) as pregunta FROM Carga2 C2
+    WHERE RESPUESTA_CORRECTA != "") T;
+	INSERT INTO Respuesta_correcta(respuesta, idRespuesta, pregunta) 
+	SELECT DISTINCT NULL as RESPUESTA_CORRECTA, 0 as idRespuesta, (SELECT ID FROM PREGUNTA WHERE pregunta = C2.PREGUNTA) as pregunta FROM Carga2 C2
     WHERE RESPUESTA_CORRECTA = "";
 END;
 $$
