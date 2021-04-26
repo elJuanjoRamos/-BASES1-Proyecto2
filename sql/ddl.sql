@@ -217,6 +217,3 @@ lines terminated by '\r\n'
 ignore 1 lines 
 (NOMBRE_REGION, REGION_PADRE);
 
-
-
-

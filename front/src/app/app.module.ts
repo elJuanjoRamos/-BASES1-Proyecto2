@@ -13,6 +13,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { QueryComponent } from './pages/query/query.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PaisComponent } from './pages/pais/pais.component';
+import { QuestionComponent } from './pages/question/question.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PaisComponent } from './pages/pais/pais.component';
     SidebarComponent,
     NavbarComponent,
     QueryComponent,
-    PaisComponent
+    PaisComponent,
+    QuestionComponent
   ],
   imports: [
     BrowserModule,
