@@ -8,6 +8,7 @@ var consulta_routes_1 = __importDefault(require("./router/consulta.routes"));
 var pais_routes_1 = __importDefault(require("./router/pais.routes"));
 var question_routes_1 = __importDefault(require("./router/question.routes"));
 var responce_routes_1 = __importDefault(require("./router/responce.routes"));
+var inventor_routes_1 = __importDefault(require("./router/inventor.routes"));
 var bodyParser = require("body-parser");
 /**
  * CONFIGURACIÓN DE PUERTO LOCAL Y PRODUCCIÓN
@@ -41,6 +42,7 @@ server.app.use(api, consulta_routes_1.default);
 server.app.use(api, pais_routes_1.default);
 server.app.use(api, question_routes_1.default);
 server.app.use(api, responce_routes_1.default);
+server.app.use(api, inventor_routes_1.default);
 server.start(function () {
     console.log("Servidor corriendo en el puerto 3000 :D");
 });

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { InventorComponent } from './inventor/inventor.component';
 import { PaisComponent } from './pais/pais.component';
 import { QueryComponent } from './query/query.component';
 import { QuestionComponent } from './question/question.component';
@@ -15,6 +16,7 @@ export const page_routes: Routes = [
     { path: 'country', component: PaisComponent },
     { path: 'question', component: QuestionComponent },
     { path: 'responce', component: ResponceComponent },
+    { path: 'inventos', component: InventorComponent },
     
     {path: '**', pathMatch: 'full', redirectTo: 'admin'}
   ];

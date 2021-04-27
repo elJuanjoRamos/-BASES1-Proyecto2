@@ -12,10 +12,10 @@ export default class InventorController {
     }
 
     getAll = (req: Request, res: Response) => {
-        var query = "SELECT IR.id as idInventor, IR.nombre as Inventor, I.id as idInvento, I.nombre as Invento, I.anio as Anio_Invento, P.nombre as Pais_Invento FROM Inventor_Invento II " +
+        var query = "SELECT II.id as id, IR.id as idInventor, IR.nombre as Inventor, I.id as idInvento, I.nombre as Invento, I.anio as Anio_Invento, P.nombre as Pais_Invento FROM Inventor_Invento II " +
         "JOIN Invento I on I.id = II.idinvento "+
         "JOIN Inventor IR on IR.id = II.idInventor " +
-        "JOIN Pais P on P.id = IR.pais; ";
+        "JOIN Pais P on P.id = IR.pais;";
 
         MySQL.sendQuery(query, [], (err:any, data:Object[]) => {
             if(err) {

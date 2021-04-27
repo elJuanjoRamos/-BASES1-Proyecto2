@@ -3,6 +3,7 @@ import consulta from "./router/consulta.routes";
 import pais from "./router/pais.routes";
 import question from "./router/question.routes";
 import responce from "./router/responce.routes";
+import inventor from "./router/inventor.routes";
 
 import bodyParser = require('body-parser');
 
@@ -40,6 +41,7 @@ server.app.use(api, consulta);
 server.app.use(api, pais);
 server.app.use(api, question);
 server.app.use(api, responce);
+server.app.use(api, inventor);
 
 
 server.start(()=> {
