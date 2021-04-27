@@ -2,3 +2,7 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.side-navbar {
+    height: 1500px;
+    top: 0;
+    bottom: 0;}
