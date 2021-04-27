@@ -15,7 +15,8 @@ export default class InventorController {
         var query = "SELECT II.id as id, IR.id as idInventor, IR.nombre as Inventor, I.id as idInvento, I.nombre as Invento, I.anio as Anio_Invento, P.nombre as Pais_Invento FROM Inventor_Invento II " +
         "JOIN Invento I on I.id = II.idinvento "+
         "JOIN Inventor IR on IR.id = II.idInventor " +
-        "JOIN Pais P on P.id = IR.pais;";
+        "JOIN Pais P on P.id = IR.pais " + 
+        "ORDER BY II.id asc";
 
         MySQL.sendQuery(query, [], (err:any, data:Object[]) => {
             if(err) {
@@ -47,31 +48,18 @@ export default class InventorController {
         })    
         
     } 
-    getPais = (req: Request, res: Response) => {
-        var id = req.params.id;
-        var query = "SELECT * FROM Pais WHERE id = ?" ;
-        MySQL.sendQuery(query, [id], (err:any, data:Object[]) => {
-            if(err) {
-                res.status(400).json({
-                    ok: false,
-                    status: 400,
-                    error: err
-                });
-            } else {
-               
-                res.json(data)
-            }
-        })    
-    }    
-    postPais = (req: Request, res: Response) => {
+    
+    updateInvento = (req: Request, res: Response) => {
 
+        var id_query = req.params.id;
+        const { id, invento, nuevoInventor, nuevoNombre, nuevoAnio } = req.body;  
+        console.log(id);
         console.log(req.body)
 
-        const { country, poblation, area, capital, region } = req.body;  
 
-        var query = "INSERT INTO Pais(nombre, poblacion, area, capital, region) "+
-        " VALUES(?, ?, ?, ?, ?);";
-        MySQL.sendQuery(query, [country, poblation, area, capital, region], (err:any, data:Object[]) => {
+
+        var query = "UPDATE Inventor_Invento SET idInvento =?, idInventor =? WHERE id = ?";
+        MySQL.sendQuery(query, [invento, nuevoInventor, id], (err:any, data:Object[]) => {
             if(err) {
                 res.status(400).json({
                     ok: false,
@@ -79,46 +67,20 @@ export default class InventorController {
                     error: err
                 });
             } else {
-               
-                res.json(data)
-            }
-        })    
-        
-    }
-    deletePais = (req: Request, res: Response) => {
 
-        var id = req.params.id;
-        var query = "DELETE FROM Pais WHERE id = ?";
-        MySQL.sendQuery(query, [id], (err:any, data:Object[]) => {
-            if(err) {
-                res.status(400).json({
-                    ok: false,
-                    status: 400,
-                    error: err
+                query = "UPDATE Invento SET nombre = ?, anio = ? WHERE id = ?";
+
+                MySQL.sendQuery(query, [nuevoNombre, nuevoAnio, invento], (err:any, data:Object[]) => {
+                    if(err) {
+                        res.status(400).json({
+                            ok: false,
+                            status: 400,
+                            error: err
+                        });
+                    } else {                
+                        res.json(data)
+                    }
                 });
-            } else {
-                res.json({"mensaje" : "Eliminado"})
-            }
-        })    
-        
-    }
-    updatePais = (req: Request, res: Response) => {
-
-        var id = req.params.id;
-        const { country, poblation, area, capital, region } = req.body;  
-
-        console.log(req.body)
-
-        var query = "UPDATE Pais SET nombre =?, poblacion =?, area =?, capital =?, region =? WHERE id = ?";
-        MySQL.sendQuery(query, [country, poblation, area, capital, region, id], (err:any, data:Object[]) => {
-            if(err) {
-                res.status(400).json({
-                    ok: false,
-                    status: 400,
-                    error: err
-                });
-            } else {
-                res.json(data)
             }
         });           
     }

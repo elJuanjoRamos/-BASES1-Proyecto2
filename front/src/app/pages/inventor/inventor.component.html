@@ -40,16 +40,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let pais of array_inventos | paginate: { itemsPerPage: 10, currentPage: p }| filter:searchText">
-                    <th scope="row">{{ pais.id }}</th>
-                    <td>{{ pais.Inventor }}</td>
-                    <td>{{ pais.Invento }}</td>
-                    <td>{{ pais.Anio_Invento }}</td>
-                    <td>{{ pais.Pais_Invento }}</td>
+                  <tr *ngFor="let inveto of array_inventos | paginate: { itemsPerPage: 10, currentPage: p }| filter:searchText">
+                    <th scope="row">{{ inveto.id }}</th>
+                    <td>{{ inveto.Inventor }}</td>
+                    <td>{{ inveto.Invento }}</td>
+                    <td>{{ inveto.Anio_Invento }}</td>
+                    <td>{{ inveto.Pais_Invento }}</td>
                      <td>
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group mr-2" role="group" aria-label="First group">
-                              <button type="button" data-toggle="modal" data-target="#modalEditar" (click)="set_query(pais.id, pais.pregunta)" class="btn btn-secondary"><i class="fa fa-pencil"></i></button>
+                              <button type="button" data-toggle="modal" data-target="#modalEditar" (click)="set_Invento(inveto)" class="btn btn-secondary"><i class="fa fa-pencil"></i></button>
                             </div>
                           </div>
                     </td>
@@ -64,3 +64,43 @@
     </div>
   </section>
 
+
+  <div id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" class="modal fade text-left" aria-hidden="true" style="display: none;">
+    <div role="document" class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="exampleModalLabel" class="modal-title">Update Invento</h4>
+          <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label>Nombre</label>
+              <input type="text" placeholder="Name" #name value="{{invento_nombre}}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Año Invento</label>
+                <input type="number" placeholder="Name" #anio value="{{invento_anio}}" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Pais Invento</label>
+                <input type="text" disabled  value="{{invento_pais}}" class="form-control">
+              </div>
+              <div class="form-group">       
+                <label>Inventor</label>
+                <select name="" class="form-control" #inventor id="">
+                    <option *ngFor="let region of array_inventores" value="{{ region.id }}">{{ region.nombre }}</option>
+                </select>
+              </div>
+              <div class="form-group text-center" *ngIf="showAlert"> 
+                <div class="badge badge-rounded bg-red"> You must fill in all the fields </div>
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
+          <button type="button" (click)="update(name.value, anio.value, inventor.value)" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>

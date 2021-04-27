@@ -8,4 +8,5 @@ var inventor_controller_1 = __importDefault(require("./../controller/inventor.co
 var router = express_1.Router();
 router.get('/inventor/inventos', inventor_controller_1.default.getInstance().getAll);
 router.get('/inventor/get_all', inventor_controller_1.default.getInstance().getInventor);
+router.put('/inventor/update/:id', inventor_controller_1.default.getInstance().updateInvento);
 exports.default = router;

@@ -142,7 +142,7 @@
               <div class="form-group">       
                 <label>Region</label>
                 <select name="" class="form-control" #region2 id="">
-                    <option *ngFor="let region of array_region" value="{{ region.id }}">{{ region.nombre }}</option>
+                    <option *ngFor="let data of array_region" value="{{ data.id }}">{{ data.nombre }}</option>
                 </select>
               </div>
               <div class="form-group text-center" *ngIf="showAletr"> 

@@ -10,7 +10,8 @@ var InventorController = /** @class */ (function () {
             var query = "SELECT II.id as id, IR.id as idInventor, IR.nombre as Inventor, I.id as idInvento, I.nombre as Invento, I.anio as Anio_Invento, P.nombre as Pais_Invento FROM Inventor_Invento II " +
                 "JOIN Invento I on I.id = II.idinvento " +
                 "JOIN Inventor IR on IR.id = II.idInventor " +
-                "JOIN Pais P on P.id = IR.pais;";
+                "JOIN Pais P on P.id = IR.pais " +
+                "ORDER BY II.id asc";
             mysql_1.default.sendQuery(query, [], function (err, data) {
                 if (err) {
                     res.status(400).json({
@@ -39,28 +40,13 @@ var InventorController = /** @class */ (function () {
                 }
             });
         };
-        this.getPais = function (req, res) {
-            var id = req.params.id;
-            var query = "SELECT * FROM Pais WHERE id = ?";
-            mysql_1.default.sendQuery(query, [id], function (err, data) {
-                if (err) {
-                    res.status(400).json({
-                        ok: false,
-                        status: 400,
-                        error: err
-                    });
-                }
-                else {
-                    res.json(data);
-                }
-            });
-        };
-        this.postPais = function (req, res) {
+        this.updateInvento = function (req, res) {
+            var id_query = req.params.id;
+            var _a = req.body, id = _a.id, invento = _a.invento, nuevoInventor = _a.nuevoInventor, nuevoNombre = _a.nuevoNombre, nuevoAnio = _a.nuevoAnio;
+            console.log(id);
             console.log(req.body);
-            var _a = req.body, country = _a.country, poblation = _a.poblation, area = _a.area, capital = _a.capital, region = _a.region;
-            var query = "INSERT INTO Pais(nombre, poblacion, area, capital, region) " +
-                " VALUES(?, ?, ?, ?, ?);";
-            mysql_1.default.sendQuery(query, [country, poblation, area, capital, region], function (err, data) {
+            var query = "UPDATE Inventor_Invento SET idInvento =?, idInventor =? WHERE id = ?";
+            mysql_1.default.sendQuery(query, [invento, nuevoInventor, id], function (err, data) {
                 if (err) {
                     res.status(400).json({
                         ok: false,
@@ -69,41 +55,19 @@ var InventorController = /** @class */ (function () {
                     });
                 }
                 else {
-                    res.json(data);
-                }
-            });
-        };
-        this.deletePais = function (req, res) {
-            var id = req.params.id;
-            var query = "DELETE FROM Pais WHERE id = ?";
-            mysql_1.default.sendQuery(query, [id], function (err, data) {
-                if (err) {
-                    res.status(400).json({
-                        ok: false,
-                        status: 400,
-                        error: err
+                    query = "UPDATE Invento SET nombre = ?, anio = ? WHERE id = ?";
+                    mysql_1.default.sendQuery(query, [nuevoNombre, nuevoAnio, invento], function (err, data) {
+                        if (err) {
+                            res.status(400).json({
+                                ok: false,
+                                status: 400,
+                                error: err
+                            });
+                        }
+                        else {
+                            res.json(data);
+                        }
                     });
-                }
-                else {
-                    res.json({ "mensaje": "Eliminado" });
-                }
-            });
-        };
-        this.updatePais = function (req, res) {
-            var id = req.params.id;
-            var _a = req.body, country = _a.country, poblation = _a.poblation, area = _a.area, capital = _a.capital, region = _a.region;
-            console.log(req.body);
-            var query = "UPDATE Pais SET nombre =?, poblacion =?, area =?, capital =?, region =? WHERE id = ?";
-            mysql_1.default.sendQuery(query, [country, poblation, area, capital, region, id], function (err, data) {
-                if (err) {
-                    res.status(400).json({
-                        ok: false,
-                        status: 400,
-                        error: err
-                    });
-                }
-                else {
-                    res.json(data);
                 }
             });
         };
