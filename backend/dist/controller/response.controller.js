@@ -57,7 +57,7 @@ var ResponceController = /** @class */ (function () {
         this.updateAnswer = function (req, res) {
             var id = req.params.id;
             var answer = req.body.answer;
-            var query = "UPDATE Respuesta_Correcta SET idRespuesta =?, respuesta =(SELECT respuesta FROM Respuesta where id = ?) WHERE id = ?";
+            var query = "UPDATE Respuesta_correcta SET idRespuesta =?, respuesta =(SELECT respuesta FROM Respuesta where id = ?) WHERE id = ?";
             console.log(req.body);
             mysql_1.default.sendQuery(query, [answer, answer, id], function (err, data) {
                 if (err) {

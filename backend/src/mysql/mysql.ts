@@ -8,19 +8,19 @@ export default class MySQL {
 
     constructor() {
         console.log("MYSQL Inicializada");
-        this.connection = mysql.createConnection({
+        /*this.connection = mysql.createConnection({
             host: 'localhost',
             user: 'root',
             password: '1234',
             database: 'Proyecto2'
-        });
+        });*/
 
-        /*this.connection = mysql.createConnection({
+        this.connection = mysql.createConnection({
             host: 'alquimistappbackend.com',
             user: 'alquimj8_practica1',
             password: 'Pr@ctica1',
             database: 'alquimj8_practica1_arqui2'
-        });*/
+        });
         this.conectarDB();
     }
 

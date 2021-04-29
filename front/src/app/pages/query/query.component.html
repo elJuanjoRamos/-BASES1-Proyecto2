@@ -15,12 +15,7 @@
       <div class="row">
         <div class="col-lg-4">
             <div class="card">
-              <div class="card-close">
-                <div class="dropdown">
-                  <button type="button" id="closeCard" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
-                  <div aria-labelledby="closeCard" class="dropdown-menu has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a><a href="#" class="dropdown-item edit"> <i class="fa fa-gear"></i>Edit</a></div>
-                </div>
-              </div>
+             
               <div class="card-header d-flex align-items-center">
                 <h3 class="h4">Query Selector</h3>
               </div>
@@ -41,11 +36,11 @@
         <div class="col-lg-8">
           <div class="card">
             <div class="card-close">
-              <div class="dropdown">
-                <button type="button" id="closeCard" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
-                <div aria-labelledby="closeCard" class="dropdown-menu has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a><a href="#" class="dropdown-item edit"> <i class="fa fa-gear"></i>Edit</a></div>
-              </div>
+              <div class="input-group">
+                  <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search">
+                </div>
             </div>
+            <br>
             <div class="card-header d-flex align-items-center">
               <h3 class="h4">Results of Query</h3>
             </div>
@@ -59,7 +54,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of results">
+                  <tr *ngFor="let data of results | paginate: { itemsPerPage: 10, currentPage: p }| filter:searchText">
                     <td>{{ data.profesional }}</td>
                     <td>{{ data.NOMBRE_PROFESIONAL }}</td>
                     <td>{{ data.inventos_asignados}}</td>
@@ -75,7 +70,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of results">
+                  <tr *ngFor="let data of results | paginate: { itemsPerPage: 10, currentPage: p }| filter:searchText">
                     <td>{{ data.idPais }}</td>
                     <td>{{ data.nombre }}</td>
                     <td>{{ data.total_respuestas}}</td>
@@ -87,12 +82,14 @@
                   <tr>
                     <th>ID</th>
                     <th>Pais</th>
+                    <th>Area</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of results">
+                  <tr *ngFor="let data of results | paginate: { itemsPerPage: 10, currentPage: p }| filter:searchText">
                     <td>{{ data.id }}</td>
                     <td>{{ data.nombre }}</td>
+                    <td>{{ data.area }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -106,7 +103,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of results">
+                  <tr *ngFor="let data of results | paginate: { itemsPerPage: 10, currentPage: p }| filter:searchText">
                     <td>{{ data.id }}</td>
                     <td>{{ data.area }}</td>
                     <td>{{ data.Jefe_Area }}</td>
@@ -123,7 +120,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of results">
+                  <tr *ngFor="let data of results | paginate: { itemsPerPage: 10, currentPage: p }| filter:searchText">
                     <td>{{ data.proesional }}</td>
                     <td>{{ data.area }}</td>
                     <td>${{ data.salario }}</td>
@@ -138,7 +135,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of results">
+                  <tr *ngFor="let data of results | paginate: { itemsPerPage: 10, currentPage: p }| filter:searchText">
                     <td>{{ data.nombre }}</td>
                     <td>{{ data.TOTAL_ACIERTOS }}</td>
                   </tr>
@@ -153,7 +150,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of results">
+                  <tr *ngFor="let data of results | paginate: { itemsPerPage: 10, currentPage: p }| filter:searchText">
                     <td>{{ data.Investigador }}</td>
                     <td>{{ data.invento }}</td>
                     <td>{{ data.anio }}</td>
@@ -163,16 +160,14 @@
               <table class="table table-striped" *ngIf="id_general == 8">
                 <thead>
                   <tr>
-                    <th>Investigador</th>
-                    <th>Invento</th>
-                    <th>Año </th>
+                    <th>Inicial Pais</th>
+                    <th>Area </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of results">
-                    <td>{{ data.Investigador }}</td>
-                    <td>{{ data.invento }}</td>
-                    <td>{{ data.anio }}</td>
+                  <tr *ngFor="let data of results | paginate: { itemsPerPage: 10, currentPage: p }| filter:searchText">
+                    <td>{{ data.inicial_pais }}</td>
+                    <td>{{ data.total_area }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -186,7 +181,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of results">
+                  <tr *ngFor="let data of results | paginate: { itemsPerPage: 10, currentPage: p }| filter:searchText">
                     <td>{{ data.Inventor }}</td>
                     <td>{{ data.Invento }}</td>
                     <td>{{ data.Anio_Invento }}</td>
@@ -204,7 +199,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of results">
+                  <tr *ngFor="let data of results | paginate: { itemsPerPage: 10, currentPage: p }| filter:searchText">
                     <td>{{ data.pais }}</td>
                     <td>{{ data.nombre }}</td>
                     <td>{{ data.area }}</td>
@@ -222,7 +217,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of results">
+                  <tr *ngFor="let data of results | paginate: { itemsPerPage: 10, currentPage: p }| filter:searchText">
                     <td>{{ data.id }}</td>
                     <td>{{ data.nombre }}</td>
                     <td>{{ data.anio }}</td>
@@ -242,7 +237,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of results">
+                  <tr *ngFor="let data of results | paginate: { itemsPerPage: 10, currentPage: p }| filter:searchText">
                     <td>{{ data.id }}</td>
                     <td>{{ data.nombre }}</td>
                     <td>{{ data.salario }}</td>
@@ -261,7 +256,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of results">
+                  <tr *ngFor="let data of results | paginate: { itemsPerPage: 10, currentPage: p }| filter:searchText">
                     <td>{{ data.id }}</td>
                     <td>{{ data.Nombre_Encuesta }}</td>
                     <td>{{ data.total_paises }}</td>
@@ -281,7 +276,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of results">
+                  <tr *ngFor="let data of results | paginate: { itemsPerPage: 10, currentPage: p }| filter:searchText">
                     <td>{{ data.id }}</td>
                     <td>{{ data.nombre }}</td>
                     <td>{{ data.poblacion }}</td>
@@ -300,7 +295,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of results">
+                  <tr *ngFor="let data of results | paginate: { itemsPerPage: 10, currentPage: p }| filter:searchText">
                     <td>{{ data.invento }}</td>
                     <td>{{ data.inventor }}</td>
                   </tr>
@@ -315,7 +310,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of results">
+                  <tr *ngFor="let data of results | paginate: { itemsPerPage: 10, currentPage: p }| filter:searchText">
                     <td>{{ data.nombre }}</td>
                     <td>{{ data.poblacion }}</td>
                     <td>{{ data.area }}</td>
@@ -330,12 +325,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of results">
+                  <tr *ngFor="let data of results | paginate: { itemsPerPage: 10, currentPage: p }| filter:searchText">
                     <td>{{ data.Pais }}</td>
                     <td>{{ data.Frontera }}</td>
                   </tr>
                 </tbody>
               </table>
+              <pagination-controls class="text-center" (pageChange)="p = $event"></pagination-controls>
             </div>
           </div>
         </div>

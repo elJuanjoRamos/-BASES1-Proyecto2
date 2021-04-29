@@ -72,7 +72,7 @@ export default class ResponceController {
         var id = req.params.id;
         const { answer } = req.body;  
 
-        var query = "UPDATE Respuesta_Correcta SET idRespuesta =?, respuesta =(SELECT respuesta FROM Respuesta where id = ?) WHERE id = ?";
+        var query = "UPDATE Respuesta_correcta SET idRespuesta =?, respuesta =(SELECT respuesta FROM Respuesta where id = ?) WHERE id = ?";
 
         console.log(req.body);
         MySQL.sendQuery(query, [answer, answer, id], (err:any, data:Object[]) => {

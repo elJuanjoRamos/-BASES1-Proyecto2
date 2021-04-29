@@ -26,17 +26,17 @@ export default class ConsultaController {
         else if (id == "2") {
             query =
             "SELECT PR.pais as idPais, P.nombre, COUNT(*) as total_respuestas FROM Pais_Respuesta PR "+
-            "JOIN PAIS P on P.id = PR.pais " +
+            "JOIN Pais P on P.id = PR.pais " +
             "GROUP BY PR.pais "+
             "ORDER BY PR.pais  ASC;";        
         }
         else if (id == "3") {
             query = 
-            "SELECT id, nombre FROM PAIS "+
-            "WHERE id not in(SELECT DISTINCT PAIS FROM Inventor) "+
+            "SELECT id, nombre, area FROM Pais "+
+            "WHERE id not in(SELECT DISTINCT Pais FROM Inventor) "+
             "AND "+
-            "id in(SELECT DISTINCT pais FROM FRONTERA where front is null) "+
-            "order by nombre asc;";
+            "id in(SELECT DISTINCT pais FROM Frontera where front is null) "+
+            "order by area desc;";
   
         }
         else if (id == "4") {
@@ -135,7 +135,7 @@ export default class ConsultaController {
                 "SELECT P.id, P.nombre, P.poblacion, P.area, P.capital, R.nombre as region, C.nombre as continente FROM Pais P "+
                 "JOIN Region R on P.region = R.id "+
                 "JOIN Continente C on R.idContinente = C.id "+
-                "WHERE P.poblacion  > (SELECT sum(poblacion) as total_poblacion_ca FROM PAIS P1 "+
+                "WHERE P.poblacion  > (SELECT sum(poblacion) as total_poblacion_ca FROM Pais P1 "+
                 "JOIN Region R on P1.region = R.id "+
                 "where R.nombre = 'Centro America'); ";
         }

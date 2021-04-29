@@ -12,8 +12,8 @@ export default class PaisController {
     }
 
     getAll = (req: Request, res: Response) => {
-        var query = "select Pais.id, Pais.nombre, Pais.poblacion, Pais.area, Pais.capital, R.nombre as region from pais " +
-        "JOIN Region R on pais.region = R.id "+
+        var query = "select Pais.id, Pais.nombre, Pais.poblacion, Pais.area, Pais.capital, R.nombre as region from Pais " +
+        "JOIN Region R on Pais.region = R.id "+
         "ORDER BY Pais.nombre ASC;";
         MySQL.sendQuery(query, [], (err:any, data:Object[]) => {
             if(err) {

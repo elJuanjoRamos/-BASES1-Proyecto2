@@ -7,8 +7,8 @@ var mysql_1 = __importDefault(require("./../mysql/mysql"));
 var PaisController = /** @class */ (function () {
     function PaisController() {
         this.getAll = function (req, res) {
-            var query = "select Pais.id, Pais.nombre, Pais.poblacion, Pais.area, Pais.capital, R.nombre as region from pais " +
-                "JOIN Region R on pais.region = R.id " +
+            var query = "select Pais.id, Pais.nombre, Pais.poblacion, Pais.area, Pais.capital, R.nombre as region from Pais " +
+                "JOIN Region R on Pais.region = R.id " +
                 "ORDER BY Pais.nombre ASC;";
             mysql_1.default.sendQuery(query, [], function (err, data) {
                 if (err) {

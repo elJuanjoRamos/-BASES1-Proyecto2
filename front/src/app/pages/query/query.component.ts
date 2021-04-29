@@ -12,7 +12,8 @@ export class QueryComponent implements OnInit {
   names = ['nombre', 'nombre 1', 'nombre 2'];
   results: any;
   constructor(private dbservice: DatabaseService) { }
-
+  p: number = 1;
+  searchText;
   ngOnInit(): void {
   }
 
