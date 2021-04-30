@@ -29,6 +29,7 @@
                   <div class="form-group">       
                     <input type="button" (click)="send_query(idquery.value)" value="Go" class="btn btn-primary">
                   </div>
+                  <p *ngIf="showAlert" style="color: red">Indique un numero valido de consulta </p>
                 </form>
               </div>
             </div>

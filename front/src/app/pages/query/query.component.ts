@@ -14,10 +14,16 @@ export class QueryComponent implements OnInit {
   constructor(private dbservice: DatabaseService) { }
   p: number = 1;
   searchText;
+  showAlert = false;
+
   ngOnInit(): void {
   }
 
   send_query(id_query: number){
+    if (id_query > 20 || id_query < 1) {
+      this.showAlert = true;
+      return;
+    }      
     this.id_general = id_query;
     this.dbservice.get_consulta(id_query).subscribe((data:any[]) =>{
       this.results = data;
