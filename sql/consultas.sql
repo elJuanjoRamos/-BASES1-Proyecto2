@@ -37,6 +37,15 @@ JOIN Area A on PA.area = A.id
 WHERE P1.salario > (SELECT prom_salario FROM C52 WHERE area = PA.area)
 ORDER BY area asc;
 
+/*
+SELECT P1.nombre as proesional, PA.area as id, A.nombre as area,  P1.salario FROM Profe_Area PA
+JOIN Profesional P1 on PA.profesional = P1.id
+JOIN Area A on PA.area = A.id
+WHERE P1.salario > (SELECT prom_salario FROM C52 WHERE area = PA.area)
+ORDER BY area asc;
+
+*/
+
 /*CONSULTA 6*/
 SELECT P.nombre,  COUNT(*) AS TOTAL_ACIERTOS FROM Pais_Respuesta PR
 JOIN Pais P on PR.pais = P.id

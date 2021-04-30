@@ -46,6 +46,7 @@ export default class ConsultaController {
             "JOIN Jefe_Area JA on JA.area = A.id "+
             "JOIN Profesional P on JA.profesional = P.id "+
             "JOIN Profesional P1 on PA.profesional = P1.id "+
+            "WHERE P1.nombre != 'KING PRESIDENT'"
             "ORDER BY Jefe_Area ASC;";
         
         }
@@ -140,8 +141,14 @@ export default class ConsultaController {
                 "where R.nombre = 'Centro America'); ";
         }
         else if (id == "16") {
-            query = "select * from pais;";
+            query = "select PA.area as id, A.nombre as area, P.nombre as Jefe_Area, P1.nombre as subordinado  from Profe_Area PA " + 
+                    "JOIN Area A on PA.area = A.id JOIN Jefe_Area JA on JA.area = A.id " + 
+                    "JOIN Profesional P on JA.profesional = P.id  JOIN Profesional P1 on PA.profesional = P1.id "+
+                    "WHERE A.id != (SELECT area FROM Profe_Area WHERE profesional = (SELECT profesional FROM Asignacion_Invento AI "+
+                    "WHERE invento = (select idInvento from Inventor_Invento II "+
+                    "JOIN Inventor I on II.idInventor = I.id where nombre = 'Pasteur'))) AND P1.nombre != 'KING PRESIDENT' ORDER BY subordinado ASC;";
         }
+
         else if (id == "17") {
             query = 
                 "SELECT I.nombre as invento, INV.nombre as inventor FROM Inventor_Invento II "+
@@ -188,3 +195,23 @@ export default class ConsultaController {
         
     }    
 }
+
+/*
+DROP TABLE Pais_Respuesta;
+DROP TABLE Respuesta_correcta;
+DROP TABLE Respuesta;
+DROP TABLE Pregunta;
+DROP TABLE Encuesta;
+DROP TABLE Profe_Area;
+DROP TABLE Jefe_Area;
+DROP TABLE Area;
+DROP TABLE Asignacion_Invento;
+DROP TABLE Profesional
+DROP TABLE Inventor_Invento;
+DROP TABLE Invento;
+DROP TABLE Inventor;
+DROP TABLE Frontera;
+DROP TABLE Pais;
+DROP TABLE Region
+DROP TABLE Continente;
+*/

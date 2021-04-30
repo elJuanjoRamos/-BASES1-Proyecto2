@@ -27,6 +27,7 @@ export class InventorComponent implements OnInit {
   }
 
   initialize(){
+    console.log("entro")
     this.invento_Service.get_all().subscribe((data) => {
       this.array_inventos = data;
       console.log(data)
