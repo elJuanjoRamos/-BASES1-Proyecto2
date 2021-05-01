@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 })
 export class QuestionService {
 
-  URI = 'http://localhost:3000';
+  URI = 'https://db1-proyecto2.herokuapp.com';
   headers = new HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) { }

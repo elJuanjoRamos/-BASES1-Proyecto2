@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 })
 export class InventorService {
 
-  URI = 'http://localhost:3000/inventor';
+  URI = 'https://db1-proyecto2.herokuapp.com/inventor';
   
   constructor(private http:HttpClient) { }
 

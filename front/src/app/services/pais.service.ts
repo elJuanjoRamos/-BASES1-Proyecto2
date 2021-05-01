@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 })
 export class PaisService {
 
-  URI = 'http://localhost:3000/pais';
+  URI = 'https://db1-proyecto2.herokuapp.com/pais';
   headers = new HttpHeaders({'Content-Type': 'application/json','Authorization': localStorage.getItem('token')});
 
   constructor(private http: HttpClient) { }
